@@ -51,7 +51,6 @@ module Lists where
   - (*) Find the number of elements of a list.
   -
   - Example in Haskell:
-  -
   - Prelude> myLength [123, 456, 789]
   - 3
   - Prelude> myLength "Hello, world!"
@@ -66,7 +65,6 @@ module Lists where
   - (*) Reverse a list.
   -
   - Example in Haskell:
-  -
   - Prelude> myReverse "A man, a plan, a canal, panama!"
   - "!amanap ,lanac a ,nalp a ,nam A"
   - Prelude> myReverse [1,2,3,4]
