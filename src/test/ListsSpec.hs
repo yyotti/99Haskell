@@ -64,3 +64,16 @@ spec = do
 
     it "returns the reversed list (3)" $ do
       myReverse ([] :: [Int]) `shouldBe` []
+
+  describe "Problem 6" $ do
+    it "returns false" $ do
+      isPalindrome [1, 2, 3] `shouldBe` False
+
+    it "returns true" $ do
+      isPalindrome "madamimadam" `shouldBe` True
+
+    it "returns true" $ do
+      isPalindrome [1, 2, 4, 8, 16, 8, 4, 2, 1] `shouldBe` True
+
+    it "returns true" $ do
+      isPalindrome ([] :: [Char]) `shouldBe` True
