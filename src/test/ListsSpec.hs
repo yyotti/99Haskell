@@ -54,3 +54,13 @@ spec = do
 
     it "returns the number of elements of a list (3)" $ do
       myLength [] `shouldBe` 0
+
+  describe "Problem 5" $ do
+    it "returns the reversed list (1)" $ do
+      myReverse "A man, a plan, a canal, panama!" `shouldBe` "!amanap ,lanac a ,nalp a ,nam A"
+
+    it "returns the reversed list (2)" $ do
+      myReverse [1, 2, 3, 4] `shouldBe` [4, 3, 2, 1]
+
+    it "returns the reversed list (3)" $ do
+      myReverse ([] :: [Int]) `shouldBe` []

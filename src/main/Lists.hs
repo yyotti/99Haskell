@@ -60,3 +60,19 @@ module Lists where
   myLength :: [a] -> Int
   myLength [] = 0
   myLength (_:xs) = 1 + myLength xs
+
+  {-
+  - 5 Problem 5
+  - (*) Reverse a list.
+  -
+  - Example in Haskell:
+  -
+  - Prelude> myReverse "A man, a plan, a canal, panama!"
+  - "!amanap ,lanac a ,nalp a ,nam A"
+  - Prelude> myReverse [1,2,3,4]
+  - [4,3,2,1]
+  -}
+  myReverse :: [a] -> [a]
+  myReverse xs = myReverse' xs []
+    where myReverse' [] ls = ls
+          myReverse' (x:xs) ls = myReverse' xs (x:ls)
