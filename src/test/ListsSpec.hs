@@ -47,7 +47,7 @@ spec = do
 
   describe "Problem 4" $ do
     it "returns the number of elements of a list (1)" $ do
-      myLength [123, 456, 789] `shouldBe` 3
+      myLength [123 :: Int, 456, 789] `shouldBe` 3
 
     it "returns the number of elements of a list (2)" $ do
       myLength "Hello, world!" `shouldBe` 13
@@ -60,20 +60,20 @@ spec = do
       myReverse "A man, a plan, a canal, panama!" `shouldBe` "!amanap ,lanac a ,nalp a ,nam A"
 
     it "returns the reversed list (2)" $ do
-      myReverse [1, 2, 3, 4] `shouldBe` [4, 3, 2, 1]
+      myReverse [1 :: Int, 2, 3, 4] `shouldBe` [4, 3, 2, 1]
 
     it "returns the reversed list (3)" $ do
       myReverse ([] :: [Int]) `shouldBe` []
 
   describe "Problem 6" $ do
     it "returns false" $ do
-      isPalindrome [1, 2, 3] `shouldBe` False
+      isPalindrome [1 :: Int, 2, 3] `shouldBe` False
 
     it "returns true" $ do
       isPalindrome "madamimadam" `shouldBe` True
 
     it "returns true" $ do
-      isPalindrome [1, 2, 4, 8, 16, 8, 4, 2, 1] `shouldBe` True
+      isPalindrome [1 :: Int, 2, 4, 8, 16, 8, 4, 2, 1] `shouldBe` True
 
     it "returns true" $ do
       isPalindrome ([] :: [Char]) `shouldBe` True

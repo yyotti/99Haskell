@@ -73,7 +73,7 @@ module Lists where
   myReverse :: [a] -> [a]
   myReverse xs = myReverse' xs []
     where myReverse' [] ls = ls
-          myReverse' (x:xs) ls = myReverse' xs (x:ls)
+          myReverse' (h:ts) ls = myReverse' ts (h:ls)
 
   {-
   - 6 Problem 6
