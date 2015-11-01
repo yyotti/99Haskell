@@ -31,3 +31,16 @@ spec = do
 
     it "throws an exception if used with a list that has one element" $ do
       evaluate (myButLast [1 :: Int]) `shouldThrow` errorCall "list has only one element"
+
+  describe "Problem 3" $ do
+    it "returns the kth element of a list (1)" $ do
+      elementAt [1 :: Int, 2, 3] 2 `shouldBe` 2
+
+    it "returns the last but one element of a list (2)" $ do
+      elementAt "haskell" 5 `shouldBe` 'e'
+
+    it "throws an exception if used with an empty list" $ do
+      evaluate (elementAt [] 2) `shouldThrow` errorCall "list is empty"
+
+    it "throws an exception if index was negative" $ do
+      evaluate (elementAt [1 :: Int, 2, 3] 0) `shouldThrow` errorCall "invalid index:0"

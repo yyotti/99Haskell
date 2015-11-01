@@ -29,3 +29,19 @@ module Lists where
   myButLast (_:[]) = error "list has only one element"
   myButLast (x:_:[]) = x
   myButLast (_:xs) = myButLast xs
+
+  {-3 Problem 3
+  - (*) Find the K'th element of a list. The first element in the list is number 1.
+  -
+  - Example in Haskell:
+  -
+  - Prelude> elementAt [1,2,3] 2
+  - 2
+  - Prelude> elementAt "haskell" 5
+  - 'e'
+  -}
+  elementAt :: [a] -> Int -> a
+  elementAt [] _ = error "list is empty"
+  elementAt _ n | n < 1 = error $ "invalid index:" ++ show n
+  elementAt (x:_) 1 = x
+  elementAt (_:xs) n = elementAt xs $ n - 1
