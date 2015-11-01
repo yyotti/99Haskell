@@ -45,3 +45,18 @@ module Lists where
   elementAt _ n | n < 1 = error $ "invalid index:" ++ show n
   elementAt (x:_) 1 = x
   elementAt (_:xs) n = elementAt xs $ n - 1
+
+  {-
+  - 4 Problem 4
+  - (*) Find the number of elements of a list.
+  -
+  - Example in Haskell:
+  -
+  - Prelude> myLength [123, 456, 789]
+  - 3
+  - Prelude> myLength "Hello, world!"
+  - 13
+  -}
+  myLength :: [a] -> Int
+  myLength [] = 0
+  myLength (_:xs) = 1 + myLength xs

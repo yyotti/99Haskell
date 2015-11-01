@@ -44,3 +44,13 @@ spec = do
 
     it "throws an exception if index was negative" $ do
       evaluate (elementAt [1 :: Int, 2, 3] 0) `shouldThrow` errorCall "invalid index:0"
+
+  describe "Problem 4" $ do
+    it "returns the number of elements of a list (1)" $ do
+      myLength [123, 456, 789] `shouldBe` 3
+
+    it "returns the number of elements of a list (2)" $ do
+      myLength "Hello, world!" `shouldBe` 13
+
+    it "returns the number of elements of a list (3)" $ do
+      myLength [] `shouldBe` 0
