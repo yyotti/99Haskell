@@ -22,3 +22,8 @@ $ runhaskell -isrc/main -isrc/test src/test/XxxSpec.hs
 $ cabal test
 ```
 で全実行できる？
+
+```sh
+cabal configure --enable-tests --disable-optimization && cabal build && ./dist/build/spec/spec
+```
+でも実行できるぽいが、まだテストが1ファイルしかないのでrunhaskellとの違いが分からない。
