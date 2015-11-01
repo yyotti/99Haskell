@@ -26,8 +26,8 @@ module Lists where
   -}
   myButLast :: [a] -> a
   myButLast [] = error "list is empty"
-  myButLast (_:[]) = error "list has only one element"
-  myButLast (x:_:[]) = x
+  myButLast [_] = error "list has only one element"
+  myButLast [x, _] = x
   myButLast (_:xs) = myButLast xs
 
   {-3 Problem 3
