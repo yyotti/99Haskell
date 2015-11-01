@@ -2,7 +2,6 @@ module Lists where
   {-
   - 1 Problem 1
   - (*) Find the last element of a list.
-  - (Note that the Lisp transcription of this problem is incorrect.)
   -
   - Example in Haskell:
   - Prelude> myLast [1,2,3,4]
@@ -18,7 +17,6 @@ module Lists where
   {-
   - 2 Problem 2
   - (*) Find the last but one element of a list.
-  - (Note that the Lisp transcription of this problem is incorrect.)
   -
   - Example in Haskell:
   - Prelude> myButLast [1,2,3,4]
