@@ -5,10 +5,20 @@ Haskell入門のために[Ninety-Nine Haskell Problems](https://wiki.haskell.org
 ## Hspecによるテスト
 [ドキュメント](http://hspec.github.io/)
 
+テストのサンプルがhspec\_sampleの中にある。
+
+```sh
+cabal install --only-dependencies --enable-tests
+```
+でいろいろセットアップできる？
+
 src/test/にテストがある。
 ```sh
-$ runhaskell XxxSpec.hs
+$ runhaskell -isrc/main -isrc/test src/test/XxxSpec.hs
 ```
 でテストを実行できる。
 
-テストのサンプルがhspec\_sampleの中にある。
+```sh
+$ cabal test
+```
+で全実行できる？
