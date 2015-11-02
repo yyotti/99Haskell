@@ -331,3 +331,16 @@ module Lists where
   insertAt e [] _ = [e]
   insertAt e (x:xs) n | n <= 1 = e:x:xs
                       | otherwise = x:insertAt e xs (n - 1)
+
+  {-
+  - 2 Problem 22
+  - Create a list containing all integers within a given range.
+  -
+  - Example in Haskell:
+  - Prelude> range 4 9
+  - [4,5,6,7,8,9]
+  -}
+  range :: Int -> Int -> [Int]
+  range s e | e < s = []
+            | s == e = [e]
+            | otherwise = s:range (s + 1) e

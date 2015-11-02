@@ -251,3 +251,13 @@ spec = do
 
     it "returns inserted list (1)" $ do
       insertAt 2 [1 :: Int, 2, 3, 4] 1 `shouldBe` [2, 1, 2, 3, 4]
+
+  describe "Problem 22" $ do
+    it "returns list contains 4 to 9" $ do
+      range 4 9 `shouldBe` [4, 5, 6, 7, 8, 9]
+
+    it "returns list contains only 2" $ do
+      range 2 2 `shouldBe` [2]
+
+    it "returns empty list" $ do
+      range 4 1 `shouldBe` []
