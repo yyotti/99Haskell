@@ -77,3 +77,13 @@ spec = do
 
     it "returns true" $ do
       isPalindrome ([] :: [Char]) `shouldBe` True
+
+  describe "Problem 7" $ do
+    it "returns flat list (1)" $ do
+      flatten (Elem (5 :: Int)) `shouldBe` [5]
+
+    it "returns flat list (2)" $ do
+      flatten (List [Elem (1 :: Int), List [Elem 2, List[Elem 3, Elem 4], Elem 5]]) `shouldBe` [1, 2, 3, 4, 5]
+
+    it "returns empty list" $ do
+      flatten (List [] :: NestedList Int) `shouldBe` []
