@@ -87,3 +87,13 @@ spec = do
 
     it "returns empty list" $ do
       flatten (List [] :: NestedList Int) `shouldBe` []
+
+  describe "Problem 8" $ do
+    it "returns compressed list (1)" $ do
+      compress "aaaabccaadeeee" `shouldBe` "abcade"
+
+    it "returns compressed list (2)" $ do
+      compress ([] :: [Char]) `shouldBe` []
+
+    it "returns compressed list (3)" $ do
+      compress [1 :: Int, 2, 3, 4] `shouldBe` [1, 2, 3, 4]

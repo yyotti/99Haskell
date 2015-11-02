@@ -113,3 +113,19 @@ module Lists where
   flatten (Elem x) = [x]
   flatten (List []) = []
   flatten (List (x:xs)) = flatten x ++ flatten (List xs)
+
+  {-
+  - 8 Problem 8
+  - (**) Eliminate consecutive duplicates of list elements.
+  -
+  - If a list contains repeated elements they should be replaced with a single copy of the element. The order of the elements should not be changed.
+  -
+  - Example in Haskell:
+  - > compress "aaaabccaadeeee"
+  - "abcade"
+  -}
+  compress :: (Eq a) => [a] -> [a]
+  compress [] = []
+  compress [x] = [x]
+  compress (x:y:zs) | x == y = compress $ y:zs
+                    | otherwise =  x:(compress $ y:zs)
