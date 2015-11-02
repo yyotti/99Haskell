@@ -297,3 +297,13 @@ spec = do
 
     it "returns empty list" $ do
       rnd_permu ([] :: [Int]) `shouldReturn` []
+
+  describe "Problem 26" $ do
+    it "returns combinations of list elements" $ do
+      combinations 3 "abcdef" `shouldBe` ["abc", "abd", "abe", "abf", "acd", "ace", "acf", "ade", "adf", "aef", "bcd", "bce", "bcf", "bde", "bdf", "bef", "cde", "cdf", "cef", "def"]
+
+    it "returns empty list" $ do
+      combinations 3 ([] :: [Int]) `shouldBe` []
+
+    it "throws an exception if r was negative" $ do
+      evaluate (combinations (-1) "ABC") `shouldThrow` errorCall "illegal argument r:-1"

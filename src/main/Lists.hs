@@ -390,3 +390,22 @@ module Lists where
   -}
   rnd_permu :: [a] -> IO [a]
   rnd_permu ls = rnd_select ls $ length ls
+
+  {-
+  - 6 Problem 26
+  - (**) Generate the combinations of K distinct objects chosen from the N elements of a list
+  -
+  - In how many ways can a committee of 3 be chosen from a group of 12 people?
+  - We all know that there are C(12,3) = 220 possibilities (C(N,K) denotes the well-known binomial coefficients).
+  - For pure mathematicians, this result may be great. But we want to really generate all the possibilities in a list.
+  -
+  - Example in Haskell:
+  - > combinations 3 "abcdef"
+  - ["abc","abd","abe",...]
+  -}
+  combinations :: Int -> [a] -> [[a]]
+  combinations r ls | r < 0 = error $ "illegal argument r:" ++ show r
+                    | r > length ls = []
+                    | r == 0 = [[]]
+                    | otherwise = (map (x:) $ combinations (r - 1) xs) ++ combinations r xs
+    where (x:xs) = ls
