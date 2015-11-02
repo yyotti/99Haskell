@@ -324,3 +324,7 @@ spec = do
 
     it "throws an exception if sum of ns was not equal to length of list" $ do
       evaluate (group [-1, 2, 1] ["ABC", "DEF", "GHI"]) `shouldThrow` errorCall "Cannot create groups"
+
+  describe "Problem 28 a)" $ do
+    it "returns sorted list by its length" $ do
+      lsort ["abc", "de", "fgh", "de", "ijkl", "mn", "o"] `shouldBe` ["o", "de", "de", "mn", "abc", "fgh", "ijkl"]
