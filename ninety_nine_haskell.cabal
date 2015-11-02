@@ -15,6 +15,7 @@ library
       src/main
   exposed-modules:
       Lists
+    , Arithmetic
   build-depends:
       base    == 4.*
     , random
