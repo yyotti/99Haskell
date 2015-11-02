@@ -374,3 +374,19 @@ module Lists where
   diff_select n m | n < 0 = error $ "illegal argument n:" ++ show n
                   | m <= 0 = error $ "illegal argument m:" ++ show m
                   | otherwise = rnd_select [1..m] n
+
+  {-
+  - 5 Problem 25
+  - Generate a random permutation of the elements of a list.
+  -
+  - Example:
+  -
+  - * (rnd-permu '(a b c d e f))
+  - (B A D C E F)
+  - Example in Haskell:
+  -
+  - Prelude System.Random>rnd_permu "abcdef"
+  - Prelude System.Random>"badcef"
+  -}
+  rnd_permu :: [a] -> IO [a]
+  rnd_permu ls = rnd_select ls $ length ls

@@ -286,3 +286,14 @@ spec = do
 
     it "throws an exception if m was 0 or negative" $ do
       evaluate (diff_select 6 (-1)) `shouldThrow` errorCall "illegal argument m:-1"
+
+  -- TODO ランダムのテストのしかたがよく分からん
+  describe "Problem 25" $ do
+    it "returns list" $ do
+      rnd_permu "a" `shouldReturn` ['a']
+
+    it "returns list" $ do
+      rnd_permu [1 :: Int, 1, 1] `shouldReturn` [1, 1, 1]
+
+    it "returns empty list" $ do
+      rnd_permu ([] :: [Int]) `shouldReturn` []
