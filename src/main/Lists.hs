@@ -318,3 +318,16 @@ module Lists where
                 | n <= 0 = error $ "illegal argument n:" ++ show n
                 | otherwise = (head ls2, ls1 ++ tail ls2)
     where (ls1, ls2) = split ls $ n - 1
+
+  {-
+  - 1 Problem 21
+  - Insert an element at a given position into a list.
+  -
+  - Example in Haskell:
+  - P21> insertAt 'X' "abcd" 2
+  - "aXbcd"
+  -}
+  insertAt :: a -> [a] -> Int -> [a]
+  insertAt e [] _ = [e]
+  insertAt e (x:xs) n | n <= 1 = e:x:xs
+                      | otherwise = x:insertAt e xs (n - 1)

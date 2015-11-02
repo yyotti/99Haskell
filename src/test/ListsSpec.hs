@@ -244,3 +244,10 @@ spec = do
 
     it "throws an exception if n was grater than length of list" $ do
       evaluate (removeAt 4 [1 :: Int, 2, 3]) `shouldThrow` errorCall "illegal argument n:4"
+
+  describe "Problem 21" $ do
+    it "returns inserted list (1)" $ do
+      insertAt 'X' "abcd" 2 `shouldBe` "aXbcd"
+
+    it "returns inserted list (1)" $ do
+      insertAt 2 [1 :: Int, 2, 3, 4] 1 `shouldBe` [2, 1, 2, 3, 4]
