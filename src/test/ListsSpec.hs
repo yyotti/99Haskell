@@ -307,3 +307,7 @@ spec = do
 
     it "throws an exception if r was negative" $ do
       evaluate (combinations (-1) "ABC") `shouldThrow` errorCall "illegal argument r:-1"
+
+  describe "Problem 27 a)" $ do
+    it "returns grouped list" $ do
+      length (group3 ["aldo", "beat", "carla", "david", "evi", "flip", "gary", "hugo", "ida"]) `shouldBe` 1260

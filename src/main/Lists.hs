@@ -409,3 +409,33 @@ module Lists where
                     | r == 0 = [[]]
                     | otherwise = (map (x:) $ combinations (r - 1) xs) ++ combinations r xs
     where (x:xs) = ls
+
+  {-
+  - 7 Problem 27
+  - Group the elements of a set into disjoint subsets.
+  -
+  - a) In how many ways can a group of 9 people work in 3 disjoint subgroups of 2, 3 and 4 persons? Write a function that generates all the possibilities and returns them in a list.
+  -
+  - b) Generalize the above predicate in a way that we can specify a list of group sizes and the predicate will return a list of groups.
+  -
+  - Note that we do not want permutations of the group members; i.e. ((ALDO BEAT) ...) is the same solution as ((BEAT ALDO) ...).
+  - However, we make a difference between ((ALDO BEAT) (CARLA DAVID) ...) and ((CARLA DAVID) (ALDO BEAT) ...).
+  -
+  - You may find more about this combinatorial problem in a good book on discrete mathematics under the term "multinomial coefficients".
+  -
+  - Example in Haskell:
+  - P27> group [2,3,4] ["aldo","beat","carla","david","evi","flip","gary","hugo","ida"]
+  - [[["aldo","beat"],["carla","david","evi"],["flip","gary","hugo","ida"]],...]
+  - (altogether 1260 solutions)
+  -
+  -  27> group [2,2,5] ["aldo","beat","carla","david","evi","flip","gary","hugo","ida"]
+  -  [[["aldo","beat"],["carla","david"],["evi","flip","gary","hugo","ida"]],...]
+  -  (altogether 756 solutions)
+  -}
+  group3 :: Eq a => [a] -> [[[a]]]
+  group3 ls = concatMap group2 $ combinations 2 ls
+    where group2 g1 = map (\g2 -> [g1, g2, remove_all g2 g1]) $ combinations 3 xs
+            where xs = remove_all g1 ls
+                  remove_all _ [] = []
+                  remove_all [] ys = ys
+                  remove_all (e:es) ys = filter (/= e) $ remove_all es ys
