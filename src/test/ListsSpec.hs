@@ -147,3 +147,13 @@ spec = do
 
     it "returns empty list" $ do
       encodeDirect ([] :: [Int]) `shouldBe` []
+
+  describe "Problem 14" $ do
+    it "returns duplicated list (1)" $ do
+      dupli [1 :: Int, 2, 3] `shouldBe` [1, 1, 2, 2, 3, 3]
+
+    it "returns duplicated list (2)" $ do
+      dupli "abccd" `shouldBe` "aabbccccdd"
+
+    it "returns empty list" $ do
+      dupli ([] :: [Char]) `shouldBe` []

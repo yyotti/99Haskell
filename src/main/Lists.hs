@@ -212,3 +212,14 @@ module Lists where
           f x ((Multiple n y):ys) | x == y = Multiple (n + 1) y:ys
                                   | otherwise = Multiple 1 x:Multiple n y:ys
           f _ _ = error "unexpected pattern"
+
+  {-4 Problem 14
+  - (*) Duplicate the elements of a list.
+  -
+  - Example in Haskell:
+  - > dupli [1, 2, 3]
+  - [1,1,2,2,3,3]
+  -}
+  dupli :: [a] -> [a]
+  dupli [] = []
+  dupli (x:xs) = x:x:dupli xs
