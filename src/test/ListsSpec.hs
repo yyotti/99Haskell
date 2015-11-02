@@ -97,3 +97,13 @@ spec = do
 
     it "returns compressed list (3)" $ do
       compress [1 :: Int, 2, 3, 4] `shouldBe` [1, 2, 3, 4]
+
+  describe "Problem 9" $ do
+    it "returns packed list (1)" $ do
+      pack ['a', 'a', 'a', 'a', 'b', 'c', 'c', 'a', 'a', 'd', 'e', 'e', 'e', 'e'] `shouldBe` ["aaaa", "b", "cc", "aa", "d", "eeee"]
+
+    it "returns packed list (2)" $ do
+      pack ([] :: [Int]) `shouldBe` []
+
+    it "returns packed list (3)" $ do
+      pack [1 :: Int, 2, 3, 4] `shouldBe` [[1], [2], [3], [4]]
