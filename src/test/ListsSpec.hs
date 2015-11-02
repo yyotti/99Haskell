@@ -215,3 +215,19 @@ spec = do
 
     it "returns empty list (2)" $ do
       slice [1 :: Int, 2, 3] 3 2 `shouldBe` []
+
+  describe "Problem 19" $ do
+    it "returns rotated list (1)" $ do
+      rotate ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'] 3 `shouldBe` "defghabc"
+
+    it "returns rotated list (2)" $ do
+      rotate ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'] (-2) `shouldBe` "ghabcdef"
+
+    it "returns sliced list (3)" $ do
+      rotate [1 :: Int, 2, 3, 4, 5] 9 `shouldBe` [5, 1, 2, 3, 4]
+
+    it "returns sliced list (3)" $ do
+      rotate [1 :: Int, 2, 3, 4, 5] (-22) `shouldBe` [4, 5, 1, 2, 3]
+
+    it "returns empty list" $ do
+      rotate ([] :: [Int]) 2 `shouldBe` []

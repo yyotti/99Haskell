@@ -283,3 +283,23 @@ module Lists where
   slice :: [a] -> Int -> Int -> [a]
   slice _ i j | j < i = []
   slice ls i j = drop (i - 1) $ take j ls
+
+  {-
+  - 9 Problem 19
+  - (**) Rotate a list N places to the left.
+  -
+  - Hint: Use the predefined functions length and (++).
+  -
+  - Examples in Haskell:
+  - *Main> rotate ['a','b','c','d','e','f','g','h'] 3
+  - "defghabc"
+  -
+  -  *Main> rotate ['a','b','c','d','e','f','g','h'] (-2)
+  -  "ghabcdef"
+  -}
+  rotate :: [a] -> Int -> [a]
+  rotate [] _ = []
+  rotate ls 0 = ls
+  rotate ls n | length ls < n = rotate ls $ mod n $ length ls
+              | n < 0 = rotate ls $ n + length ls
+              | otherwise = (drop n ls) ++ (take n ls)
