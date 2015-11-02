@@ -202,3 +202,16 @@ spec = do
 
     it "throws an exception if n was negative" $ do
       evaluate (split ['a', 'b', 'c'] (-1)) `shouldThrow` errorCall "illegal argument n:-1"
+
+  describe "Problem 18" $ do
+    it "returns sliced list (1)" $ do
+      slice ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'k'] 3 7 `shouldBe` "cdefg"
+
+    it "returns sliced list (2)" $ do
+      slice [1 :: Int, 2, 3] 0 8 `shouldBe` [1, 2, 3]
+
+    it "returns empty list (1)" $ do
+      slice ([] :: [Int]) 2 5 `shouldBe` []
+
+    it "returns empty list (2)" $ do
+      slice [1 :: Int, 2, 3] 3 2 `shouldBe` []
