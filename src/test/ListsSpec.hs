@@ -130,10 +130,10 @@ spec = do
 
   describe "Problem 12" $ do
     it "returns decoded list (1)" $ do
-      decodeModified [Multiple 4 'a', Single 'b', Multiple 2 'c', Multiple 2 'a', Single 'd', Multiple 4 'e'] `shouldBe` "aaaabccaadeeee"
+      decodeModified [Multiple (4 :: Int) 'a', Single 'b', Multiple 2 'c', Multiple 2 'a', Single 'd', Multiple 4 'e'] `shouldBe` "aaaabccaadeeee"
 
     it "returns decoded list (2)" $ do
-      decodeModified [Single 1, Single 2, Single 3, Single 4] `shouldBe` [1, 2, 3, 4]
+      decodeModified [Single (1 :: Int), Single 2, Single 3, Single 4] `shouldBe` [1, 2, 3, 4]
 
     it "returns empty list" $ do
       decodeModified ([] :: [Code Int]) `shouldBe` []
@@ -143,7 +143,7 @@ spec = do
       encodeDirect "aaaabccaadeeee" `shouldBe` [Multiple 4 'a', Multiple 1 'b', Multiple 2 'c', Multiple 2 'a', Multiple 1 'd', Multiple 4 'e']
 
     it "returns run-length encoded list (direct) (2)" $ do
-      encodeDirect [1, 2, 3, 4] `shouldBe` [Multiple 1 1, Multiple 1 2, Multiple 1 3, Multiple 1 4]
+      encodeDirect [1 :: Int, 2, 3, 4] `shouldBe` [Multiple 1 1, Multiple 1 2, Multiple 1 3, Multiple 1 4]
 
     it "returns empty list" $ do
       encodeDirect ([] :: [Int]) `shouldBe` []
