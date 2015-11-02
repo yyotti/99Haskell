@@ -127,3 +127,13 @@ spec = do
 
     it "returns empty list" $ do
       encodeModified ([] :: [Int]) `shouldBe` []
+
+  describe "Problem 12" $ do
+    it "returns decoded list (1)" $ do
+      decodeModified [Multiple 4 'a', Single 'b', Multiple 2 'c', Multiple 2 'a', Single 'd', Multiple 4 'e'] `shouldBe` "aaaabccaadeeee"
+
+    it "returns decoded list (2)" $ do
+      decodeModified [Single 1, Single 2, Single 3, Single 4] `shouldBe` [1, 2, 3, 4]
+
+    it "returns empty list" $ do
+      decodeModified ([] :: [Code Int]) `shouldBe` []

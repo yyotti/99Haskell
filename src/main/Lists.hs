@@ -172,3 +172,23 @@ module Lists where
   encodeModified ls = map f $ encode ls
     where f (n, x) | n == 1 = Single x
                    | otherwise = Multiple n x
+
+  {-
+  - 2 Problem 12
+  - (**) Decode a run-length encoded list.
+  -
+  - Given a run-length code list generated as specified in problem 11. Construct its uncompressed version.
+  -
+  - Example in Haskell:
+  -
+  - P12> decodeModified
+  -        [Multiple 4 'a',Single 'b',Multiple 2 'c',
+  -                Multiple 2 'a',Single 'd',Multiple 4 'e']
+  -                "aaaabccaadeeee"
+  -}
+  decodeModified :: [Code a] -> [a]
+  decodeModified [] = []
+  decodeModified (Single x:xs) = x:(decodeModified xs)
+  decodeModified (Multiple n x:xs) = multi x n ++ (decodeModified xs)
+    where multi _ 0 = []
+          multi x n = x:(multi x $ n - 1)
