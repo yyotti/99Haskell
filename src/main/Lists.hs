@@ -192,3 +192,22 @@ module Lists where
   decodeModified (Multiple n x:xs) = multi x n ++ (decodeModified xs)
     where multi _ 0 = []
           multi x n = x:(multi x $ n - 1)
+
+  {-3 Problem 13
+  - (**) Run-length encoding of a list (direct solution).
+  -
+  - Implement the so-called run-length encoding data compression method directly.
+  - I.e. don't explicitly create the sublists containing the duplicates, as in problem 9, but only count them.
+  - As in problem P11, simplify the result list by replacing the singleton lists (1 X) by X.
+  -
+  - Example in Haskell:
+  - P13> encodeDirect "aaaabccaadeeee"
+  - [Multiple 4 'a',Single 'b',Multiple 2 'c',
+  -  Multiple 2 'a',Single 'd',Multiple 4 'e']
+  -}
+  encodeDirect :: Eq a => [a] -> [Code a]
+  encodeDirect [] = []
+  encodeDirect ls = foldr f [] ls
+    where f x [] = [Multiple 1 x]
+          f x ((Multiple n y):ys) | x == y = Multiple (n + 1) y:ys
+                                  | otherwise = (Multiple 1 x):(Multiple n y:ys)

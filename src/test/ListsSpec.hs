@@ -137,3 +137,13 @@ spec = do
 
     it "returns empty list" $ do
       decodeModified ([] :: [Code Int]) `shouldBe` []
+
+  describe "Problem 13" $ do
+    it "returns run-length encoded list (direct) (1)" $ do
+      encodeDirect "aaaabccaadeeee" `shouldBe` [Multiple 4 'a', Multiple 1 'b', Multiple 2 'c', Multiple 2 'a', Multiple 1 'd', Multiple 4 'e']
+
+    it "returns run-length encoded list (direct) (2)" $ do
+      encodeDirect [1, 2, 3, 4] `shouldBe` [Multiple 1 1, Multiple 1 2, Multiple 1 3, Multiple 1 4]
+
+    it "returns empty list" $ do
+      encodeDirect ([] :: [Int]) `shouldBe` []
