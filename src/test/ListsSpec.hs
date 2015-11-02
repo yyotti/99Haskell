@@ -261,3 +261,14 @@ spec = do
 
     it "returns empty list" $ do
       range 4 1 `shouldBe` []
+
+  -- TODO ランダムのテストのしかたがよく分からん
+  describe "Problem 23" $ do
+    it "returns list" $ do
+      rnd_select [1 :: Int] 4 `shouldReturn` [1, 1, 1, 1]
+
+    it "throws an exception if n was negative" $ do
+      evaluate (rnd_select ['a', 'b', 'c'] (-1)) `shouldThrow` errorCall "illegal argument n:-1"
+
+    it "throws an exception if list was empty" $ do
+      evaluate (rnd_select [] 2) `shouldThrow` errorCall "list is empty"

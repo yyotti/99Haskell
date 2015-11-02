@@ -1,4 +1,6 @@
 module Lists where
+  import System.Random (getStdRandom, randomR)
+  import Control.Monad
 
   {-
   - 1 Problem 1
@@ -344,3 +346,17 @@ module Lists where
   range s e | e < s = []
             | s == e = [e]
             | otherwise = s:range (s + 1) e
+
+  {-
+  - 3 Problem 23
+  - Extract a given number of randomly selected elements from a list.
+  -
+  - Example in Haskell:
+  - Prelude System.Random>rnd_select "abcdefgh" 3 >>= putStrLn
+  - eda
+  -}
+  rnd_select :: [a] -> Int -> IO [a]
+  rnd_select [] _ = error "list is empty"
+  rnd_select ls n | n < 0 = error $ "illegal argument n:" ++ show n
+                  | otherwise = do pos <- replicateM n $ getStdRandom $ randomR (0, length ls - 1)
+                                   return [ls !! p | p <- pos]

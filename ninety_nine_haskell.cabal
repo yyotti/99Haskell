@@ -17,6 +17,7 @@ library
       Lists
   build-depends:
       base    == 4.*
+    , random
 
 test-suite spec
   type:
