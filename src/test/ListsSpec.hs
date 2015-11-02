@@ -186,3 +186,19 @@ spec = do
 
     it "throws an exception if n was less or equals 0" $ do
       evaluate (dropEvery ['a', 'b', 'c'] 0) `shouldThrow` errorCall "illegal argument n:0"
+
+  describe "Problem 17" $ do
+    it "returns splitted list pair (1)" $ do
+      split "abcdefghik" 3 `shouldBe` ("abc", "defghik")
+
+    it "returns splitted list pair (2)" $ do
+      split [1 :: Int, 2, 3] 0 `shouldBe` ([], [1, 2, 3])
+
+    it "returns splitted list pair (3)" $ do
+      split [1 :: Int, 2, 3] 10 `shouldBe` ([1, 2, 3], [])
+
+    it "returns empty list pair" $ do
+      split ([] :: [Int]) 2 `shouldBe` ([], [])
+
+    it "throws an exception if n was negative" $ do
+      evaluate (split ['a', 'b', 'c'] (-1)) `shouldThrow` errorCall "illegal argument n:-1"

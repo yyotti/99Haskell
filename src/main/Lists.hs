@@ -254,3 +254,17 @@ module Lists where
     where dropEvery' [] _ = []
           dropEvery' (_:xs) 1 = dropEvery' xs n
           dropEvery' (x:xs) k = x:dropEvery' xs (k - 1)
+
+  {-
+  - 7 Problem 17
+  - (*) Split a list into two parts; the length of the first part is given.
+  -
+  - Do not use any predefined predicates.
+  -
+  - Example in Haskell:
+  - *Main> split "abcdefghik" 3
+  - ("abc", "defghik")
+  -}
+  split :: [a] -> Int -> ([a], [a])
+  split _ n | n < 0 = error ("illegal argument n:" ++ show n)
+  split ls n = (take n ls, drop n ls)
