@@ -107,3 +107,13 @@ spec = do
 
     it "returns empty list" $ do
       pack ([] :: [Int]) `shouldBe` []
+
+  describe "Problem 10" $ do
+    it "returns encoded list (1)" $ do
+      encode "aaaabccaadeeee" `shouldBe` [(4, 'a'), (1, 'b'), (2, 'c'), (2, 'a'), (1, 'd'), (4, 'e')]
+
+    it "returns encoded list (2)" $ do
+      encode [1 :: Int, 2, 3, 4] `shouldBe` [(1, 1), (1, 2), (1, 3), (1, 4)]
+
+    it "returns empty list" $ do
+      encode ([] :: [Int]) `shouldBe` []
