@@ -264,6 +264,9 @@ spec = do
 
   -- TODO ランダムのテストのしかたがよく分からん
   describe "Problem 23" $ do
+    it "returns empty list" $ do
+      rnd_select [1 :: Int, 2, 3] 0 `shouldReturn` []
+
     it "returns list" $ do
       rnd_select [1 :: Int] 4 `shouldReturn` [1, 1, 1, 1]
 

@@ -356,6 +356,7 @@ module Lists where
   - eda
   -}
   rnd_select :: [a] -> Int -> IO [a]
+  rnd_select _ 0 = return []
   rnd_select [] _ = error "list is empty"
   rnd_select ls n | n < 0 = error $ "illegal argument n:" ++ show n
                   | otherwise = do pos <- replicateM n $ getStdRandom $ randomR (0, length ls - 1)
