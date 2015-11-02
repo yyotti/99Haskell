@@ -188,10 +188,10 @@ module Lists where
   -}
   decodeModified :: [Code a] -> [a]
   decodeModified [] = []
-  decodeModified (Single x:xs) = x:(decodeModified xs)
-  decodeModified (Multiple n x:xs) = multi x n ++ (decodeModified xs)
+  decodeModified (Single x:xs) = x:decodeModified xs
+  decodeModified (Multiple n x:xs) = multi x n ++ decodeModified xs
     where multi _ 0 = []
-          multi x n = x:(multi x $ n - 1)
+          multi x n = x:multi x (n - 1)
 
   {-3 Problem 13
   - (**) Run-length encoding of a list (direct solution).
@@ -210,4 +210,4 @@ module Lists where
   encodeDirect ls = foldr f [] ls
     where f x [] = [Multiple 1 x]
           f x ((Multiple n y):ys) | x == y = Multiple (n + 1) y:ys
-                                  | otherwise = (Multiple 1 x):(Multiple n y:ys)
+                                  | otherwise = Multiple 1 x:Multiple n y:ys
