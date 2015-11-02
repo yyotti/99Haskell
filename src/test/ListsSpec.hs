@@ -231,3 +231,16 @@ spec = do
 
     it "returns empty list" $ do
       rotate ([] :: [Int]) 2 `shouldBe` []
+
+  describe "Problem 20" $ do
+    it "returns removed list (1)" $ do
+      removeAt 2 "abcd" `shouldBe` ('b', "acd")
+
+    it "throws an exception if n was less or equals 0" $ do
+      evaluate (removeAt (-1) ['a', 'b', 'c']) `shouldThrow` errorCall "illegal argument n:-1"
+
+    it "throws an exception if list was empty" $ do
+      evaluate (removeAt 2 []) `shouldThrow` errorCall "list is empty"
+
+    it "throws an exception if n was grater than length of list" $ do
+      evaluate (removeAt 4 [1 :: Int, 2, 3]) `shouldThrow` errorCall "illegal argument n:4"

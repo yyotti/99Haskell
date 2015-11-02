@@ -303,3 +303,18 @@ module Lists where
   rotate ls n | length ls < n = rotate ls $ mod n $ length ls
               | n < 0 = rotate ls $ n + length ls
               | otherwise = (drop n ls) ++ (take n ls)
+
+  {-
+  - 10 Problem 20
+  - (*) Remove the K'th element from a list.
+  -
+  - Example in Haskell:
+  - *Main> removeAt 2 "abcd"
+  - ('b',"acd")
+  -}
+  removeAt :: Int -> [a] -> (a, [a])
+  removeAt n ls | length ls == 0 = error "list is empty"
+                | length ls < n = error $ "illegal argument n:" ++ show n
+                | n <= 0 = error $ "illegal argument n:" ++ show n
+                | otherwise = (head ls2, ls1 ++ tail ls2)
+    where (ls1, ls2) = split ls $ n - 1
