@@ -239,3 +239,18 @@ module Lists where
   repli [] _ = []
   repli (x:xs) n | n < 0 = error ("illegal argument n:" ++ show n)
                  | otherwise = foldr (const (x:)) (repli xs n) [1..n]
+
+  {-
+  - 6 Problem 16
+  - (**) Drop every N'th element from a list.
+  -
+  - Example in Haskell:
+  - *Main> dropEvery "abcdefghik" 3
+  - "abdeghk"
+  -}
+  dropEvery :: [a] -> Int -> [a]
+  dropEvery _ n | n <= 0 = error ("illegal argument n:" ++ show n)
+  dropEvery ls n = dropEvery' ls n
+    where dropEvery' [] _ = []
+          dropEvery' (_:xs) 1 = dropEvery' xs n
+          dropEvery' (x:xs) k = x:dropEvery' xs (k - 1)

@@ -173,3 +173,16 @@ spec = do
 
     it "throws an exception if n was negative" $ do
       evaluate (repli [1 :: Int, 2, 3] (-1)) `shouldThrow` errorCall "illegal argument n:-1"
+
+  describe "Problem 16" $ do
+    it "returns dropped list (1)" $ do
+      dropEvery "abcdefghik" 3 `shouldBe` "abdeghk"
+
+    it "returns dropped list (2)" $ do
+      dropEvery [1 :: Int, 2, 3] 1 `shouldBe` []
+
+    it "returns empty list" $ do
+      dropEvery ([] :: [Int]) 2 `shouldBe` []
+
+    it "throws an exception if n was less or equals 0" $ do
+      evaluate (dropEvery ['a', 'b', 'c'] 0) `shouldThrow` errorCall "illegal argument n:0"
