@@ -311,3 +311,16 @@ spec = do
   describe "Problem 27 a)" $ do
     it "returns grouped list" $ do
       length (group3 ["aldo", "beat", "carla", "david", "evi", "flip", "gary", "hugo", "ida"]) `shouldBe` 1260
+
+  describe "Problem 27 b)" $ do
+    it "returns grouped list" $ do
+      length (group [2, 3, 4] ["aldo", "beat", "carla", "david", "evi", "flip", "gary", "hugo", "ida"]) `shouldBe` 1260
+
+    it "returns grouped list" $ do
+      length (group [2, 2, 5] ["aldo", "beat", "carla", "david", "evi", "flip", "gary", "hugo", "ida"]) `shouldBe` 756
+
+    it "throws an exception if sum of ns was not equal to length of list" $ do
+      evaluate (group [1, 1, 1] ["ABC"]) `shouldThrow` errorCall "Cannot create groups"
+
+    it "throws an exception if sum of ns was not equal to length of list" $ do
+      evaluate (group [-1, 2, 1] ["ABC", "DEF", "GHI"]) `shouldThrow` errorCall "Cannot create groups"

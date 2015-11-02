@@ -433,8 +433,21 @@ module Lists where
   -  (altogether 756 solutions)
   -}
   group3 :: Eq a => [a] -> [[[a]]]
-  group3 ls = concatMap group2 $ combinations 2 ls
-    where group2 g1 = map (\g2 -> [g1, g2, remove_all g2 g1]) $ combinations 3 xs
+  -- group3 ls = concatMap group2 $ combinations 2 ls
+  --   where group2 g1 = map (\g2 -> [g1, g2, remove_all g2 g1]) $ combinations 3 xs
+  --           where xs = remove_all g1 ls
+  --                 remove_all _ [] = []
+  --                 remove_all [] ys = ys
+  --                 remove_all (e:es) ys = filter (/= e) $ remove_all es ys
+  group3 ls = group [2, 3, 4] ls
+
+  group :: Eq a => [Int] -> [a] -> [[[a]]]
+  group [] _ = [[]]
+  group ns ls | sum ns /= length ls = error "Cannot create groups"
+              | minimum ns < 0 = error "Cannot create groups"
+              | otherwise = concatMap group2 $ combinations n ls
+    where (n:ms) = ns
+          group2 g1 = map (g1:) $ group ms xs
             where xs = remove_all g1 ls
                   remove_all _ [] = []
                   remove_all [] ys = ys
