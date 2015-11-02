@@ -155,7 +155,8 @@ module Lists where
   encode :: (Eq a) => [a] -> [(Int, a)]
   encode ls = map (\x -> (length x, head x)) $ pack ls
 
-  {-1 Problem 11
+  {-
+  - 1 Problem 11
   - (*) Modified run-length encoding.
   -
   - Modify the result of problem 10 in such a way that if an element has no duplicates it is simply copied into the result list.
@@ -193,7 +194,8 @@ module Lists where
     where multi _ 0 = []
           multi y k = x:multi y (k - 1)
 
-  {-3 Problem 13
+  {-
+  - 3 Problem 13
   - (**) Run-length encoding of a list (direct solution).
   -
   - Implement the so-called run-length encoding data compression method directly.
@@ -213,7 +215,8 @@ module Lists where
                                   | otherwise = Multiple 1 x:Multiple n y:ys
           f _ _ = error "unexpected pattern"
 
-  {-4 Problem 14
+  {-
+  - 4 Problem 14
   - (*) Duplicate the elements of a list.
   -
   - Example in Haskell:
