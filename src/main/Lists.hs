@@ -1,7 +1,7 @@
 module Lists where
   import System.Random (getStdRandom, randomR)
   import Control.Monad
-  import Data.List (sortBy)
+  import Data.List (sortBy, groupBy)
 
   {-
   - 1 Problem 1
@@ -475,3 +475,8 @@ module Lists where
   -}
   lsort :: [[a]] -> [[a]]
   lsort ls = sortBy (\x y -> compare (length x) (length y)) ls
+
+  lfsort :: [[a]] -> [[a]]
+  lfsort ls = concatMap (fst) $ sortBy (\x y -> compare (snd x) (snd y)) $ freq ls
+    where freq xs = map (\x -> (x, length x)) $ groupBy (\x y -> length x == length y) $ sortBy (\x y -> compare (length y) (length x)) xs
+

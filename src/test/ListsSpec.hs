@@ -328,3 +328,7 @@ spec = do
   describe "Problem 28 a)" $ do
     it "returns sorted list by its length" $ do
       lsort ["abc", "de", "fgh", "de", "ijkl", "mn", "o"] `shouldBe` ["o", "de", "de", "mn", "abc", "fgh", "ijkl"]
+
+  describe "Problem 28 b)" $ do
+    it "returns sorted list by its length frequency" $ do
+      lfsort ["abc", "de", "fgh", "de", "ijkl", "mn", "o"] `shouldBe` ["ijkl", "o", "abc", "fgh", "de", "de", "mn"]
