@@ -157,3 +157,19 @@ spec = do
 
     it "returns empty list" $ do
       dupli ([] :: [Char]) `shouldBe` []
+
+  describe "Problem 15" $ do
+    it "returns replicated list (1)" $ do
+      repli "abc" 3 `shouldBe` "aaabbbccc"
+
+    it "returns replicated list (2)" $ do
+      repli [1 :: Int, 2, 3] 2 `shouldBe` [1, 1, 2, 2, 3, 3]
+
+    it "returns empty list (1)" $ do
+      repli ([] :: [Char]) 2 `shouldBe` []
+
+    it "returns empty list (2)" $ do
+      repli [1 :: Int, 2, 3] 0 `shouldBe` []
+
+    it "throws an exception if n was negative" $ do
+      evaluate (repli [1 :: Int, 2, 3] (-1)) `shouldThrow` errorCall "illegal argument n:-1"

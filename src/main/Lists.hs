@@ -226,3 +226,16 @@ module Lists where
   dupli :: [a] -> [a]
   dupli [] = []
   dupli (x:xs) = x:x:dupli xs
+
+  {-
+  - 5 Problem 15
+  - (**) Replicate the elements of a list a given number of times.
+  -
+  - Example in Haskell:
+  - > repli "abc" 3
+  - "aaabbbccc"
+  -}
+  repli :: [a] -> Int -> [a]
+  repli [] _ = []
+  repli (x:xs) n | n < 0 = error ("illegal argument n:" ++ show n)
+                 | otherwise = foldr (const (x:)) (repli xs n) [1..n]
