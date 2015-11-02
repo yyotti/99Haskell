@@ -360,3 +360,16 @@ module Lists where
   rnd_select ls n | n < 0 = error $ "illegal argument n:" ++ show n
                   | otherwise = do pos <- replicateM n $ getStdRandom $ randomR (0, length ls - 1)
                                    return [ls !! p | p <- pos]
+
+  {-
+  - 4 Problem 24
+  - Lotto: Draw N different random numbers from the set 1..M.
+  -
+  - Example in Haskell:
+  - Prelude System.Random>diff_select 6 49
+  - Prelude System.Random>[23,1,17,33,21,37]
+  -}
+  diff_select :: Int -> Int -> IO [Int]
+  diff_select n m | n < 0 = error $ "illegal argument n:" ++ show n
+                  | m <= 0 = error $ "illegal argument m:" ++ show m
+                  | otherwise = rnd_select [1..m] n

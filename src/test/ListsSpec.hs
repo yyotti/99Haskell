@@ -272,3 +272,14 @@ spec = do
 
     it "throws an exception if list was empty" $ do
       evaluate (rnd_select [] 2) `shouldThrow` errorCall "list is empty"
+
+  -- TODO ランダムのテストのしかたがよく分からん
+  describe "Problem 24" $ do
+    it "returns list" $ do
+      diff_select 6 1 `shouldReturn` [1, 1, 1, 1, 1, 1]
+
+    it "throws an exception if n was negative" $ do
+      evaluate (diff_select (-1) 49) `shouldThrow` errorCall "illegal argument n:-1"
+
+    it "throws an exception if m was 0 or negative" $ do
+      evaluate (diff_select 6 (-1)) `shouldThrow` errorCall "illegal argument m:-1"
