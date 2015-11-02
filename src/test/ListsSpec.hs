@@ -36,7 +36,7 @@ spec = do
     it "returns the kth element of a list (1)" $ do
       elementAt [1 :: Int, 2, 3] 2 `shouldBe` 2
 
-    it "returns the last but one element of a list (2)" $ do
+    it "returns the kth element of a list (2)" $ do
       elementAt "haskell" 5 `shouldBe` 'e'
 
     it "throws an exception if used with an empty list" $ do
