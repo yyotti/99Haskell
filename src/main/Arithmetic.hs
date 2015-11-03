@@ -4,6 +4,7 @@ module Arithmetic where
   {-
   - prime number list
   -}
+  primes :: [Integer]
   primes = filter isPrime $ 2:[3,5..]
 
   {-
