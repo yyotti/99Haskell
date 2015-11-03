@@ -87,3 +87,7 @@ spec = do
 
     it "throws exception (2)" $ do
       evaluate (goldbach 1) `shouldThrow` errorCall "n must be grater than 2"
+
+  describe "Problem 41 (1)" $ do
+    it "returns [(3,7),(5,7),(3,11),(3,13),(5,13),(3,17)] when (s, e) = (9, 20)" $ do
+      goldbachList 9 20 `shouldBe` [(3 , 7), (5, 7), (3, 11), (3, 13), (5, 13), (3, 17)]
