@@ -61,3 +61,10 @@ spec = do
 
     it "returns [(109, 1)] when n = 109" $ do
       primeFactorsMult 109 `shouldBe` [(109, 1)]
+
+  describe "Problem 35" $ do
+    it "returns 4 when n = 10" $ do
+      totient2 10 `shouldBe` 4
+
+    it "returns 6 when n = 7" $ do
+      totient2 7 `shouldBe` 6
