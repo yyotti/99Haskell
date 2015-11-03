@@ -47,3 +47,10 @@ spec = do
 
     it "returns 6 when n = 7" $ do
       totient 7 `shouldBe` 6
+
+  describe "Problem 35" $ do
+    it "returns [3,3,5,7] when n = 315" $ do
+      primeFactors 315 `shouldBe` [3, 3, 5, 7]
+
+    it "returns [109] when n = 109" $ do
+      primeFactors 109 `shouldBe` [109]

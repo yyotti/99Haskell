@@ -58,3 +58,19 @@ module Arithmetic where
   -}
   totient :: Integer -> Int
   totient n = length $ filter (coprime n) [1..(n - 1)]
+
+  {-
+  - 6 Problem 35
+  - (**) Determine the prime factors of a given positive integer. Construct a flat list containing the prime factors in ascending order.
+  -
+  - Example in Haskell:
+  - > primeFactors 315
+  - [3, 3, 5, 7]
+  -}
+  primeFactors :: Integer -> [Integer]
+  primeFactors n = primeFactors' n $ takeWhile (\x -> x * x <= n) primes
+    where primeFactors' m [] = [m]
+          primeFactors' m (p:ps) | m == 1 = []
+                                 | m `mod` p == 0 = p:(primeFactors' (m `div` p) $ p:ps)
+                                 | otherwise = primeFactors' m ps
+          primes = filter isPrime $ 2:[3,5..]
