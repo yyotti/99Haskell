@@ -108,3 +108,13 @@ module Arithmetic where
   -}
   totient2 :: Integer -> Integer
   totient2 n = product $ map (\x -> let (p, m) = x in (p - 1) * p^(m - 1)) $ primeFactorsMult n
+
+  {-
+  - 9 Problem 38
+  - (*) Compare the two methods of calculating Euler's totient function.
+  -
+  - Use the solutions of problems 34 and 37 to compare the algorithms.
+  - Take the number of reductions as a measure for efficiency.
+  - Try to calculate phi(10090) as an example.
+  -}
+  -- TODO pending
