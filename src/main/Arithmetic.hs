@@ -1,4 +1,6 @@
 module Arithmetic where
+  import Data.List
+
   {-
   - 2 Problem 31
   - (**) Determine whether a given integer number is prime.
@@ -74,3 +76,16 @@ module Arithmetic where
                                  | m `mod` p == 0 = p:(primeFactors' (m `div` p) $ p:ps)
                                  | otherwise = primeFactors' m ps
           primes = filter isPrime $ 2:[3,5..]
+
+  {-
+  - 7 Problem 36
+  - (**) Determine the prime factors of a given positive integer.
+  -
+  - Construct a list containing the prime factors and their multiplicity.
+  -
+  - Example in Haskell:
+  - *Main> prime_factors_mult 315
+  - [(3,2),(5,1),(7,1)]
+  -}
+  primeFactorsMult :: Integer -> [(Integer, Int)]
+  primeFactorsMult n = map (\xs -> (head xs, length xs)) $ group $ primeFactors n
