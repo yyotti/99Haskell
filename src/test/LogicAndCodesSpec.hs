@@ -80,3 +80,7 @@ spec = do
     describe "table" $ do
       it "returns string when f = `and' a (or' a b)`" $ do
         table (\a b -> and' a (or' a b)) `shouldBe` "True True True\nTrue False True\nFalse True False\nFalse False False"
+
+  describe "Problem 47" $ do
+    it "returns string when f = (a `and'` (a `or'` not' b))" $ do
+      table (\a b -> a `and'` (a `or'` not' b)) `shouldBe` "True True True\nTrue False True\nFalse True False\nFalse False False"
