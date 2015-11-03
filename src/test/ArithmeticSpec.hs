@@ -68,3 +68,7 @@ spec = do
 
     it "returns 6 when n = 7" $ do
       totient2 7 `shouldBe` 6
+
+  describe "Problem 39" $ do
+    it "returns [11,13,17,19] when (s, e) = (10, 20)" $ do
+      primesR 10 20 `shouldBe` [11, 13, 17, 19]

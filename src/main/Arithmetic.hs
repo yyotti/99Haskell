@@ -118,3 +118,17 @@ module Arithmetic where
   - Try to calculate phi(10090) as an example.
   -}
   -- TODO pending
+
+  {-
+  - 10 Problem 39
+  - (*) A list of prime numbers.
+  -
+  - Given a range of integers by its lower and upper limit, construct a list of all prime numbers in that range.
+  -
+  - Example in Haskell:
+  - P29> primesR 10 20
+  - [11,13,17,19]
+  -}
+  primesR :: Integer -> Integer -> [Integer]
+  primesR s e = takeWhile (<= e) $ dropWhile (< s) primes
+    where primes = filter isPrime $ 2:[3,5..]
