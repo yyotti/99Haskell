@@ -2,6 +2,11 @@ module Arithmetic where
   import Data.List
 
   {-
+  - prime number list
+  -}
+  primes = filter isPrime $ 2:[3,5..]
+
+  {-
   - 2 Problem 31
   - (**) Determine whether a given integer number is prime.
   -
@@ -18,8 +23,7 @@ module Arithmetic where
   isPrime n | n < 2 = False
             | n == 2 = True
             | otherwise = all (\x -> n `mod` x /= 0) $ takeWhile (<= m) primes
-    where primes = filter isPrime $ 2:[3,5..]
-          m = floor $ sqrt $ (fromIntegral n :: Double)
+    where m = floor $ sqrt $ (fromIntegral n :: Double)
 
   {-
   - 3 Problem 32
@@ -75,7 +79,6 @@ module Arithmetic where
           primeFactors' m (p:ps) | m == 1 = []
                                  | m `mod` p == 0 = p:(primeFactors' (m `div` p) $ p:ps)
                                  | otherwise = primeFactors' m ps
-          primes = filter isPrime $ 2:[3,5..]
 
   {-
   - 7 Problem 36
@@ -131,4 +134,3 @@ module Arithmetic where
   -}
   primesR :: Integer -> Integer -> [Integer]
   primesR s e = takeWhile (<= e) $ dropWhile (< s) primes
-    where primes = filter isPrime $ 2:[3,5..]

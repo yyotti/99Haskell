@@ -8,6 +8,10 @@ main = hspec spec
 
 spec :: Spec
 spec = do
+  describe "primes" $ do
+    it "first 10 terms are [2,3,5,7,11,13,17,19,23,29]" $ do
+      take 10 primes `shouldBe` [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+
   describe "Problem 31" $ do
     it "returns true when n = 7" $ do
       isPrime 7 `shouldBe` True
