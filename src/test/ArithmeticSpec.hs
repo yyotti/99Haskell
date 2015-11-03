@@ -91,3 +91,7 @@ spec = do
   describe "Problem 41 (1)" $ do
     it "returns [(3,7),(5,7),(3,11),(3,13),(5,13),(3,17)] when (s, e) = (9, 20)" $ do
       goldbachList 9 20 `shouldBe` [(3 , 7), (5, 7), (3, 11), (3, 13), (5, 13), (3, 17)]
+
+  describe "Problem 41 (2)" $ do
+    it "returns [(73,919),(61,1321),(67,1789),(61,1867)] when (s, e, m) = (4, 2000, 50)" $ do
+      goldbachList' 4 2000 50 `shouldBe` [(73, 919), (61, 1321), (67, 1789), (61, 1867)]

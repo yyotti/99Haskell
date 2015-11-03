@@ -170,3 +170,6 @@ module Arithmetic where
   -}
   goldbachList :: Integer -> Integer -> [(Integer, Integer)]
   goldbachList s e = map goldbach $ filter (\x -> x > 2 && even x) $ [s..e]
+
+  goldbachList' :: Integer -> Integer -> Integer -> [(Integer, Integer)]
+  goldbachList' s e m = filter (\x -> (fst x) > m) $ goldbachList s e
