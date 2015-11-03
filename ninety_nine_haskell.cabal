@@ -16,6 +16,7 @@ library
   exposed-modules:
       Lists
     , Arithmetic
+    , LogicAndCodes
   build-depends:
       base    == 4.*
     , random
