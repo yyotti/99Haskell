@@ -40,3 +40,10 @@ spec = do
 
     it "returns False when (m, n) = (4, 14)" $ do
       coprime 4 14 `shouldBe` False
+
+  describe "Problem 34" $ do
+    it "returns 4 when n = 10" $ do
+      totient 10 `shouldBe` 4
+
+    it "returns 6 when n = 7" $ do
+      totient 7 `shouldBe` 6
