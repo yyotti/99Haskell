@@ -20,3 +20,13 @@ spec = do
 
     it "returns false (2)" $ do
       isPrime 1 `shouldBe` False
+
+  describe "Problem 32" $ do
+    it "returns GCD (1)" $ do
+      myGCD 36 63 `shouldBe` 9
+
+    it "returns GCD (2)" $ do
+      myGCD (-3) (-6) `shouldBe` 3
+
+    it "returns GCD (3)" $ do
+      myGCD (-3) 6 `shouldBe` 3

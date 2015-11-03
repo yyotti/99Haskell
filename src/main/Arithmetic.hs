@@ -18,3 +18,17 @@ module Arithmetic where
             | otherwise = all (\x -> n `mod` x /= 0) $ takeWhile (<= m) primes
     where primes = filter isPrime $ 2:[3,5..]
           m = floor $ sqrt $ (fromIntegral n :: Double)
+
+  {-
+  - 3 Problem 32
+  - (**) Determine the greatest common divisor of two positive integer numbers. Use Euclid's algorithm.
+  -
+  - Example in Haskell:
+  - [myGCD 36 63, myGCD (-3) (-6), myGCD (-3) 6]
+  - [9,3,3]
+  -}
+  myGCD :: Integer -> Integer -> Integer
+  myGCD m n | m < 0 || n < 0 = myGCD (abs m) (abs n)
+            | m < n = myGCD n m
+            | n == 0 = m
+            | otherwise = myGCD n (m `mod` n)
