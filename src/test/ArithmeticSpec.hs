@@ -30,3 +30,13 @@ spec = do
 
     it "returns GCD (3)" $ do
       myGCD (-3) 6 `shouldBe` 3
+
+  describe "Problem 33" $ do
+    it "returns True (1)" $ do
+      coprime 35 64 `shouldBe` True
+
+    it "returns True (2)" $ do
+      coprime 109 2 `shouldBe` True
+
+    it "returns False (1)" $ do
+      coprime 4 14 `shouldBe` False

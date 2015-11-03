@@ -32,3 +32,14 @@ module Arithmetic where
             | m < n = myGCD n m
             | n == 0 = m
             | otherwise = myGCD n (m `mod` n)
+
+  {-
+  - 4 Problem 33
+  - (*) Determine whether two positive integer numbers are coprime. Two numbers are coprime if their greatest common divisor equals 1.
+  -
+  - Example in Haskell:
+  - * coprime 35 64
+  - True
+  -}
+  coprime :: Integer -> Integer -> Bool
+  coprime m n = myGCD m n == 1
