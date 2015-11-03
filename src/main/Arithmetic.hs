@@ -152,5 +152,5 @@ module Arithmetic where
   -}
   goldbach :: Integer -> (Integer, Integer)
   goldbach n | n <= 2 = error "n must be grater than 2"
-             | n `mod` 2 /= 0 = error "n must be even number"
+             | odd n = error "n must be even number"
              | otherwise = fromJust $ find (\x -> isPrime $ snd x) $ map (\x -> (x, n - x)) $ takeWhile (<= n `div` 2) primes
