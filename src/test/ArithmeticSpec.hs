@@ -2,6 +2,7 @@ module ArithmeticSpec (main, spec) where
 
 import Test.Hspec
 import Arithmetic
+import Control.Exception (evaluate)
 
 main :: IO ()
 main = hspec spec
@@ -76,3 +77,13 @@ spec = do
   describe "Problem 39" $ do
     it "returns [11,13,17,19] when (s, e) = (10, 20)" $ do
       primesR 10 20 `shouldBe` [11, 13, 17, 19]
+
+  describe "Problem 40" $ do
+    it "returns (5, 23) when n = 28" $ do
+      goldbach 28 `shouldBe` (5, 23)
+
+    it "throws exception (1)" $ do
+      evaluate (goldbach 27) `shouldThrow` errorCall "n must be even number"
+
+    it "throws exception (2)" $ do
+      evaluate (goldbach 1) `shouldThrow` errorCall "n must be grater than 2"
