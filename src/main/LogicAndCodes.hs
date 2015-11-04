@@ -21,27 +21,30 @@ module LogicAndCodes where
   not' :: Bool -> Bool
   not' a | a == True = False
          | otherwise = True
+
   and' :: Bool -> Bool -> Bool
   and' a b | (a, b) == (True, True) = True
            | otherwise = False
+
   or' :: Bool -> Bool -> Bool
   or' a b | (a, b) == (False, False) = False
           | otherwise = True
+
   nand' :: Bool -> Bool -> Bool
   nand' a b = not' $ and' a b
+
   nor' :: Bool -> Bool -> Bool
   nor' a b = not' $ or' a b
+
   xor' :: Bool -> Bool -> Bool
-  xor' a b | (a, b) == (True, False) = True
-           | (a, b) == (False, True) = True
-           | otherwise = False
+  xor' a b = or' (and' a (not' b)) (and' (not' a) b)
+
   impl' :: Bool -> Bool -> Bool
-  impl' a b | (a, b) == (True, False) = False
-            | otherwise = True
+  impl' a b = or' (not' a) b
+
   equ' :: Bool -> Bool -> Bool
-  equ' a b | (a, b) == (True, True) = True
-           | (a, b) == (False, False) = True
-           | otherwise = False
+  equ' a b = not' $ xor' a b
+
   table :: (Bool -> Bool -> Bool) -> String
   table f = intercalate "\n" $ map (\(x, y) -> intercalate " " $ map (\z -> show z) [x, y, f x y]) bools
     where bools = concatMap (\x -> map (\y -> (x, y)) [True, False]) [True, False]
