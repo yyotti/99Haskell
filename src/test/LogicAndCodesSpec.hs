@@ -112,3 +112,11 @@ spec = do
             "False False False False"
                  )
           in tablen 3 (\[a, b, c] -> (a `and'` ((b `or'` c) `equ'` a) `and'` b) `or'` (a `and'` c)) `shouldBe` str2
+
+  describe "Problem 49" $ do
+    it "returns 1-bit gray code" $ do
+      gray 1 `shouldBe` ["0", "1"]
+    it "returns 2-bit gray code" $ do
+      gray 2 `shouldBe` ["00", "01", "11", "10"]
+    it "returns 3-bit gray code" $ do
+      gray 3 `shouldBe` ["000","001","011","010","110","111","101","100"]
