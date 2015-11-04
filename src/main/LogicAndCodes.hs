@@ -126,8 +126,9 @@ module LogicAndCodes where
   - ["000","001","011","010","110","111","101","100"]
   -}
   gray :: Int -> [String]
-  gray 1 = ["0", "1"]
-  gray n = add0 ++ add1
+  gray n | n <= 0 = []
+         | n == 1 = ["0", "1"]
+         | otherwise = add0 ++ add1
     where add0 = map (\g -> "0" ++ g) g'
           add1 = map (\g -> "1" ++ g) $ reverse g'
           g' = gray (n - 1)

@@ -114,6 +114,8 @@ spec = do
           in tablen 3 (\[a, b, c] -> (a `and'` ((b `or'` c) `equ'` a) `and'` b) `or'` (a `and'` c)) `shouldBe` str2
 
   describe "Problem 49" $ do
+    it "returns empty list" $ do
+      gray 0 `shouldBe` []
     it "returns 1-bit gray code" $ do
       gray 1 `shouldBe` ["0", "1"]
     it "returns 2-bit gray code" $ do
