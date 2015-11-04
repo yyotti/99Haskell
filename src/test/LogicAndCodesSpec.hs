@@ -84,3 +84,31 @@ spec = do
   describe "Problem 47" $ do
     it "returns string when f = (a `and'` (a `or'` not' b))" $ do
       table (\a b -> a `and'` (a `or'` not' b)) `shouldBe` "True True True\nTrue False True\nFalse True False\nFalse False False"
+
+  describe "Problem 48" $ do
+    it "returns string when f = ((a `and'` (b `or'` c)) `equ'` ((a `and'` b) `or'` (a `and'` c)))" $ do
+      -- infixl 3 `equ'
+      let str1 = (
+            "True  True  True  True \n" ++
+            "True  True  False True \n" ++
+            "True  False True  True \n" ++
+            "True  False False True \n" ++
+            "False True  True  True \n" ++
+            "False True  False True \n" ++
+            "False False True  True \n" ++
+            "False False False True "
+                 )
+          in tablen 3 (\[a, b, c] -> (a `and'` (b `or'` c)) `equ'` ((a `and'` b) `or'` (a `and'` c))) `shouldBe` str1
+    it "returns string when f = ((a `and'` (b `or'` c)) `equ'` ((a `and'` b) `or'` (a `and'` c)))" $ do
+      -- infixl 7 `equ'
+      let str2 = (
+            "True  True  True  True \n" ++
+            "True  True  False True \n" ++
+            "True  False True  True \n" ++
+            "True  False False False\n" ++
+            "False True  True  False\n" ++
+            "False True  False False\n" ++
+            "False False True  False\n" ++
+            "False False False False"
+                 )
+          in tablen 3 (\[a, b, c] -> (a `and'` ((b `or'` c) `equ'` a) `and'` b) `or'` (a `and'` c)) `shouldBe` str2
