@@ -234,3 +234,29 @@ spec = do
       leaves (Branch (1 :: Int) (Branch 2 (Branch 3 Empty Empty) (Branch 4 Empty Empty)) (Branch 5 Empty Empty)) `shouldBe` [3, 4, 5]
     it "returns [3, 5] when t = (B 1 (B 2 (B 3 E E) E) (B 4 (B 5 E E) E))" $ do
       leaves (Branch (1 :: Int) (Branch 2 (Branch 3 Empty Empty) Empty) (Branch 4 (Branch 5 Empty Empty) Empty)) `shouldBe` [3, 5]
+
+  describe "Problem 62" $ do
+    it "returns [] when t = E" $ do
+      internals Empty `shouldBe` ([] :: [Int])
+    it "returns [] when t = (B 1 E E)" $ do
+      internals (Branch (1 :: Int) Empty Empty) `shouldBe` []
+    it "returns [1] when t = (B 1 (B 2 E E) E)" $ do
+      internals (Branch (1 :: Int) (Branch 2 Empty Empty) Empty) `shouldBe` [1]
+    it "returns [1] when t = (B 1 E (B 3 E E))" $ do
+      internals (Branch (1 :: Int) Empty (Branch 3 Empty Empty)) `shouldBe` [1]
+    it "returns [1] when t = (B 1 (B 2 E E) (B 3 E E))" $ do
+      internals (Branch (1 :: Int) (Branch 2 Empty Empty) (Branch 3 Empty Empty)) `shouldBe` [1]
+    it "returns [1, 2] when t = (B 1 (B 2 (B 3 E E) E) (B 4 E E))" $ do
+      internals (Branch (1 :: Int) (Branch 2 (Branch 3 Empty Empty) Empty) (Branch 4 Empty Empty)) `shouldBe` [1, 2]
+    it "returns [1, 2] when t = (B 1 (B 2 E (B 3 E E)) (B 4 E E))" $ do
+      internals (Branch (1 :: Int) (Branch 2 Empty (Branch 3 Empty Empty)) (Branch 4 Empty Empty)) `shouldBe` [1, 2]
+    it "returns [1, 3] when t = (B 1 (B 2 E E) (B 3 (B 4 E E) E))" $ do
+      internals (Branch (1 :: Int) (Branch 2 Empty Empty) (Branch 3 (Branch 4 Empty Empty) Empty)) `shouldBe` [1, 3]
+    it "returns [1, 3] when t = (B 1 (B 2 E E) (B 3 E (B 4 E E)))" $ do
+      internals (Branch (1 :: Int) (Branch 2 Empty Empty) (Branch 3 Empty (Branch 4 Empty Empty))) `shouldBe` [1, 3]
+    it "returns [1, 2] when t = (B 1 (B 2 E (B 4 E E)) (B 2 E E))" $ do
+      internals (Branch (1 :: Int) (Branch 2 Empty (Branch 4 Empty Empty)) (Branch 2 Empty Empty)) `shouldBe` [1, 2]
+    it "returns [1, 2] when t = (B 1 (B 2 (B 3 E E) (B 4 E E)) (B 5 E E))" $ do
+      internals (Branch (1 :: Int) (Branch 2 (Branch 3 Empty Empty) (Branch 4 Empty Empty)) (Branch 5 Empty Empty)) `shouldBe` [1, 2]
+    it "returns [1, 2, 4] when t = (B 1 (B 2 (B 3 E E) E) (B 4 (B 5 E E) E))" $ do
+      internals (Branch (1 :: Int) (Branch 2 (Branch 3 Empty Empty) Empty) (Branch 4 (Branch 5 Empty Empty) Empty)) `shouldBe` [1, 2, 4]

@@ -233,3 +233,19 @@ module BinaryTrees where
   leaves Empty = []
   leaves (Branch v Empty Empty) = [v]
   leaves (Branch _ l r) = leaves l ++ leaves r
+
+  {-
+  - 4 Problem 62
+  - Collect the internal nodes of a binary tree in a list
+  -
+  - An internal node of a binary tree has either one or two non-empty successors.
+  - Write a predicate internals/2 to collect them in a list.
+  -
+  - Example in Haskell:
+  - Prelude>internals tree4
+  - Prelude>[1,2]
+  -}
+  internals :: Tree a -> [a]
+  internals Empty = []
+  internals (Branch _ Empty Empty) = []
+  internals (Branch v l r) = v:internals l ++ internals r
