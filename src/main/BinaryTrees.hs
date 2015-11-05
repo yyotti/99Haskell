@@ -128,3 +128,29 @@ module BinaryTrees where
   -}
   symCbalTrees :: Int -> [Tree Char]
   symCbalTrees = filter symmetric . cbalTree
+
+  {-
+  - 7 Problem 59
+  - (**) Construct height-balanced binary trees
+  -
+  - In a height-balanced binary tree, the following property holds for every node:
+  - The height of its left subtree and the height of its right subtree are almost equal,
+  - which means their difference is not greater than one.
+  -
+  - Construct a list of all height-balanced binary trees with the given element and the given maximum height.
+  -
+  - Example in Haskell:
+  - *Main> take 4 $ hbalTree 'x' 3
+  - [Branch 'x' (Branch 'x' Empty Empty) (Branch 'x' Empty (Branch 'x' Empty Empty)),
+  -  Branch 'x' (Branch 'x' Empty Empty) (Branch 'x' (Branch 'x' Empty Empty) Empty),
+  -  Branch 'x' (Branch 'x' Empty Empty) (Branch 'x' (Branch 'x' Empty Empty) (Branch 'x' Empty Empty)),
+  -  Branch 'x' (Branch 'x' Empty (Branch 'x' Empty Empty)) (Branch 'x' Empty Empty)]
+  -}
+  hbalTree :: a -> Int -> [Tree a]
+  hbalTree v n | n < 1 = [Empty]
+               | n == 1 = [leaf v]
+               | otherwise = ls2 ++ ls1
+    where sub1 = hbalTree v (n - 1)
+          sub2 = hbalTree v (n - 2)
+          ls1 = concatMap (\t1 -> concatMap (\t2 -> [Branch v t1 t2]) sub1) sub1
+          ls2 = concatMap (\t1 -> concatMap (\t2 -> [Branch v t1 t2, Branch v t2 t1]) sub2) sub1

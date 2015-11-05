@@ -80,3 +80,13 @@ spec = do
             Branch 'x' (Branch 'x' Empty (Branch 'x' Empty Empty)) (Branch 'x' (Branch 'x' Empty Empty) Empty)
             ] in
             symCbalTrees 5 `shouldBe` expected
+
+  describe "Problem 59" $ do
+    it "returns [E] if (v, n) = ('x', 0)" $ do
+      hbalTree 'x' 0 `shouldBe` [Empty]
+    it "returns [(B 'x' E E)] if (v, n) = ('x', 1)" $ do
+      hbalTree 'x' 1 `shouldBe` [Branch 'x' Empty Empty]
+    it "returns [(B 'x' (B 'x' E E) E), (B 'x' E (B 'x' E E)), (B 'x' (B 'x' E E) (B 'x' E E))] if (v, n) = ('x', 2)" $ do
+      hbalTree 'x' 2 `shouldBe` [(Branch 'x' (Branch 'x' Empty Empty) Empty), (Branch 'x' Empty (Branch 'x' Empty Empty)), (Branch 'x' (Branch 'x' Empty Empty) (Branch 'x' Empty Empty))]
+    it "returns 315 patterns if (v, n) = ('x', 3)" $ do
+      (length $ hbalTree 'x' 4) `shouldBe` 315
