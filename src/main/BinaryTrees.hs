@@ -154,3 +154,50 @@ module BinaryTrees where
           sub2 = hbalTree v (n - 2)
           ls1 = concatMap (\t1 -> concatMap (\t2 -> [Branch v t1 t2]) sub1) sub1
           ls2 = concatMap (\t1 -> concatMap (\t2 -> [Branch v t1 t2, Branch v t2 t1]) sub2) sub1
+
+  {-
+  - 8 Problem 60
+  - (**) Construct height-balanced binary trees with a given number of nodes
+  -
+  - Consider a height-balanced binary tree of height H. What is the maximum number of nodes it can contain?
+  -
+  - Clearly, MaxN = 2**H - 1. However, what is the minimum number MinN? This question is more difficult.
+  - Try to find a recursive statement and turn it into a function minNodes that returns the minimum number of nodes
+  - in a height-balanced binary tree of height H.
+  - On the other hand, we might ask: what is the maximum height H a height-balanced binary tree with N nodes can have?
+  - Write a function maxHeight that computes this.
+  -
+  - Now, we can attack the main problem: construct all the height-balanced binary trees with a given number of nodes.
+  - Find out how many height-balanced trees exist for N = 15.
+  -
+  - Example in Haskell:
+  - *Main> length $ hbalTreeNodes 'x' 15
+  - 1553
+  - *Main> map (hbalTreeNodes 'x') [0..3]
+  - [[Empty],
+  -  [Branch 'x' Empty Empty],
+  -  [Branch 'x' Empty (Branch 'x' Empty Empty),Branch 'x' (Branch 'x' Empty Empty) Empty],
+  -  [Branch 'x' (Branch 'x' Empty Empty) (Branch 'x' Empty Empty)]]
+  -}
+  minHbalNodes :: Int -> Int
+  minHbalNodes h | h < 1 = 0
+                 | otherwise = minHbalNodes (h - 1) + minHbalNodes (h - 2) + 1
+
+  maxHbalHeight :: Int -> Int
+  maxHbalHeight n | n < 1 = 0
+                  | otherwise = last $ takeWhile (\k -> minHbalNodes k <= n) [1..]
+
+  minHbalHeight :: Int -> Int
+  minHbalHeight n | n < 1 = 0
+                  | otherwise = minHbalHeight (n `div` 2) + 1
+
+  nodeCount :: Tree a -> Int
+  nodeCount Empty = 0
+  nodeCount (Branch _ l r) = nodeCount l + nodeCount r + 1
+
+  hbalTreeNodes :: a -> Int -> [Tree a]
+  hbalTreeNodes v n | n < 1 = [Empty]
+                    | n == 1 = [leaf v]
+                    | otherwise = filter (\t -> nodeCount t == n) $ concatMap (\k -> hbalTree v k) [m1 .. m2]
+    where m1 = minHbalHeight n
+          m2 = maxHbalHeight n
