@@ -1,4 +1,6 @@
 module BinaryTrees where
+  import Data.List
+
   data Tree a = Empty | Branch a (Tree a) (Tree a) deriving (Show, Eq)
 
   leaf :: a -> Tree a
@@ -108,7 +110,7 @@ module BinaryTrees where
   - True
   -}
   construct :: [Int] -> Tree Int
-  construct ls = foldl addValue Empty ls
+  construct ls = foldl' addValue Empty ls
     where addValue Empty x = leaf x
           addValue (Branch n l r) x | n > x = Branch n (addValue l x) r
                                     | otherwise = Branch n l (addValue r x)
