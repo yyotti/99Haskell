@@ -179,5 +179,31 @@ spec = do
               Branch 'x' (Branch 'x' Empty Empty) (Branch 'x' Empty (Branch 'x' Empty Empty))
               ] in
               hbalTreeNodes 'x' 4 `shouldBe` expected
-      it "returns 1553 patterns when (v, n) = ('x', 15)" $ do
-        length (hbalTreeNodes 'x' 15) `shouldBe` 1553
+      -- FIXME ちょっと時間かかるので少し消しておく
+      -- it "returns 1553 patterns when (v, n) = ('x', 15)" $ do
+      --   length (hbalTreeNodes 'x' 15) `shouldBe` 1553
+  describe "Problem 61" $ do
+    it "returns 0 when t = E" $ do
+      countLeaves Empty `shouldBe` 0
+    it "returns 1 when t = (B 'x' E E)" $ do
+      countLeaves (Branch 'x' Empty Empty) `shouldBe` 1
+    it "returns 1 when t = (B 'x' (B 'x' E E) E)" $ do
+      countLeaves (Branch 'x' (Branch 'x' Empty Empty) Empty) `shouldBe` 1
+    it "returns 1 when t = (B 'x' E (B 'x' E E))" $ do
+      countLeaves (Branch 'x' Empty (Branch 'x' Empty Empty)) `shouldBe` 1
+    it "returns 2 when t = (B 'x' (B 'x' E E) (B 'x' E E))" $ do
+      countLeaves (Branch 'x' (Branch 'x' Empty Empty) (Branch 'x' Empty Empty)) `shouldBe` 2
+    it "returns 2 when t = (B 'x' (B 'x' (B 'x' E E) E) (B 'x' E E))" $ do
+      countLeaves (Branch 'x' (Branch 'x' (Branch 'x' Empty Empty) Empty) (Branch 'x' Empty Empty)) `shouldBe` 2
+    it "returns 2 when t = (B 'x' (B 'x' E (B 'x' E E)) (B 'x' E E))" $ do
+      countLeaves (Branch 'x' (Branch 'x' Empty (Branch 'x' Empty Empty)) (Branch 'x' Empty Empty)) `shouldBe` 2
+    it "returns 2 when t = (B 'x' (B 'x' E E) (B 'x' (B 'x' E E) E))" $ do
+      countLeaves (Branch 'x' (Branch 'x' Empty Empty) (Branch 'x' (Branch 'x' Empty Empty) Empty)) `shouldBe` 2
+    it "returns 2 when t = (B 'x' (B 'x' E E) (B 'x' E (B 'x' E E)))" $ do
+      countLeaves (Branch 'x' (Branch 'x' Empty Empty) (Branch 'x' Empty (Branch 'x' Empty Empty))) `shouldBe` 2
+    it "returns 2 when t = (B 1 (B 2 E (B 4 E E)) (B 2 E E))" $ do
+      countLeaves (Branch 1 (Branch 2 Empty (Branch 4 Empty Empty)) (Branch 2 Empty Empty)) `shouldBe` 2
+    it "returns 3 when t = (B 'x' (B 'x' (B 'x' E E) (B 'x' E E)) (B 'x' E E))" $ do
+      countLeaves (Branch 'x' (Branch 'x' (Branch 'x' Empty Empty) (Branch 'x' Empty Empty)) (Branch 'x' Empty Empty)) `shouldBe` 3
+    it "returns 2 when t = (B 'x' (B 'x' (B 'x' E E) E) (B 'x' (B 'x' E E) E))" $ do
+      countLeaves (Branch 'x' (Branch 'x' (Branch 'x' Empty Empty) Empty) (Branch 'x' (Branch 'x' Empty Empty) Empty)) `shouldBe` 2
