@@ -91,7 +91,7 @@ spec = do
     it "returns 315 patterns when (v, n) = ('x', 3)" $ do
       (length $ hbalTree 'x' 4) `shouldBe` 315
 
-  describe "Problem 59" $ do
+  describe "Problem 60" $ do
     describe "minHbalNodes" $ do
       it "returns 0 when h = 0" $ do
         minHbalNodes 0 `shouldBe` 0
