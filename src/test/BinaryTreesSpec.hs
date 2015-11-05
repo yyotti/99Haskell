@@ -64,3 +64,19 @@ spec = do
         symmetric . construct $ [5, 3, 18, 1, 4, 12, 21]
       it "returns True if ns = [3, 2, 5, 7, 1]" $ do
         symmetric . construct $ [3, 2, 5, 7, 1]
+
+  describe "Problem 58" $ do
+    it "returns [E] if n = 0" $ do
+      symCbalTrees 0 `shouldBe` [Empty]
+    it "returns [(B 'x' E E)] if n = 1" $ do
+      symCbalTrees 1 `shouldBe` [Branch 'x' Empty Empty]
+    it "returns [] if n = 2" $ do
+      symCbalTrees 2 `shouldBe` []
+    it "returns [(B 'x' (B 'x' E E) (B 'x' E E))] if n = 3" $ do
+      symCbalTrees 3 `shouldBe` [Branch 'x' (Branch 'x' Empty Empty) (Branch 'x' Empty Empty)]
+    it "returns [(B 'x' (B 'x' E (B 'x' E E)) (B 'x' (B 'x' E E) E)), ...] if n = 5" $ do
+      let expected = [
+            Branch 'x' (Branch 'x' (Branch 'x' Empty Empty) Empty) (Branch 'x' Empty (Branch 'x' Empty Empty)),
+            Branch 'x' (Branch 'x' Empty (Branch 'x' Empty Empty)) (Branch 'x' (Branch 'x' Empty Empty) Empty)
+            ] in
+            symCbalTrees 5 `shouldBe` expected

@@ -112,3 +112,17 @@ module BinaryTrees where
     where addValue Empty x = leaf x
           addValue (Branch n l r) x | n > x = Branch n (addValue l x) r
                                     | otherwise = Branch n l (addValue r x)
+
+  {-
+  - 6 Problem 58
+  - (**) Generate-and-test paradigm
+  -
+  - Apply the generate-and-test paradigm to construct all symmetric, completely balanced binary trees with a given number of nodes.
+  -
+  - Example in Haskell:
+  - *Main> symCbalTrees 5
+  - [Branch 'x' (Branch 'x' Empty (Branch 'x' Empty Empty)) (Branch 'x' (Branch 'x' Empty Empty) Empty),
+  - Branch 'x' (Branch 'x' (Branch 'x' Empty Empty) Empty) (Branch 'x' Empty (Branch 'x' Empty Empty))]
+  -}
+  symCbalTrees :: Int -> [Tree Char]
+  symCbalTrees = filter symmetric . cbalTree
