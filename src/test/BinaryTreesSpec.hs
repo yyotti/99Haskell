@@ -27,3 +27,27 @@ spec = do
             Branch 'x' (Branch 'x' Empty Empty) (Branch 'x' Empty (Branch 'x' Empty Empty))
             ] in
             cbalTree 4 `shouldBe` expected
+
+  describe "Problem 56" $ do
+    describe "mirror" $ do
+      it "returns True if (t1 t2) = (E, E)" $ do
+        mirror Empty Empty `shouldBe` True
+      it "returns False if (t1 t2) = (E, (B 'x' E E))" $ do
+        mirror Empty (Branch 'x' Empty Empty) `shouldBe` False
+      it "returns True if (t1, t2) = ((B 'x' E E), (B 'x' E E))" $ do
+        mirror (Branch 'x' Empty Empty) (Branch 'x' Empty Empty) `shouldBe` True
+      it "returns False if (t1, t2) = ((B 'x' (B 'x' E E) E), (B 'x' E E))" $ do
+        mirror (Branch 'x' (Branch 'x' Empty Empty) Empty) (Branch 'x' Empty Empty) `shouldBe` False
+      it "returns False if (t1, t2) = ((B 'x' (B 'x' E E) E), (B 'x' (B 'x' E E) E))" $ do
+        mirror (Branch 'x' (Branch 'x' Empty Empty) Empty) (Branch 'x' (Branch 'x' Empty Empty) Empty) `shouldBe` False
+      it "returns True if (t1, t2) = ((B 'x' E (B 'x' E E)), (B 'x' (B 'x' E E) E))" $ do
+        mirror (Branch 'x' Empty (Branch 'x' Empty Empty)) (Branch 'x' (Branch 'x' Empty Empty) Empty) `shouldBe` True
+    describe "symmetric" $ do
+      it "returns False if t = (B 'x' (B 'x' E E) E)" $ do
+        symmetric (Branch 'x' (Branch 'x' Empty Empty) Empty) `shouldBe` False
+      it "returns True if t = (B 'x' (B 'x' E E) (B 'x' E E))" $ do
+        symmetric (Branch 'x' (Branch 'x' Empty Empty) (Branch 'x' Empty Empty)) `shouldBe` True
+      it "returns False if t = (B 'x' (B 'x' E (B 'x' E E)) (B 'x' E (B 'x' E E)))" $ do
+        symmetric (Branch 'x' (Branch 'x' Empty (Branch 'x' Empty Empty)) (Branch 'x' Empty (Branch 'x' Empty Empty))) `shouldBe` False
+      it "returns True if t = (B 'x' (B 'x' (B 'x' E E) E) (B 'x' E (B 'x' E E)))" $ do
+        symmetric (Branch 'x' (Branch 'x' (Branch 'x' Empty Empty) Empty) (Branch 'x' Empty (Branch 'x' Empty Empty))) `shouldBe` True
