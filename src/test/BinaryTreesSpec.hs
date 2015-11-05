@@ -51,3 +51,16 @@ spec = do
         symmetric (Branch 'x' (Branch 'x' Empty (Branch 'x' Empty Empty)) (Branch 'x' Empty (Branch 'x' Empty Empty))) `shouldBe` False
       it "returns True if t = (B 'x' (B 'x' (B 'x' E E) E) (B 'x' E (B 'x' E E)))" $ do
         symmetric (Branch 'x' (Branch 'x' (Branch 'x' Empty Empty) Empty) (Branch 'x' Empty (Branch 'x' Empty Empty))) `shouldBe` True
+
+  describe "Problem 57" $ do
+    it "returns Empty if ns = []" $ do
+      construct [] `shouldBe` Empty
+    it "returns (B 1 E E) if ns = [1]" $ do
+      construct [1] `shouldBe` (Branch 1 Empty Empty)
+    it "returns (B 3 (B 2 (B 1 E E) E) (B 5 E (B 7 E E))) if ls = [3, 2, 5, 7, 1]" $ do
+      construct [3, 2, 5, 7, 1] `shouldBe` (Branch 3 (Branch 2 (Branch 1 Empty Empty) Empty) (Branch 5 Empty (Branch 7 Empty Empty)))
+    describe "symmetric test" $ do
+      it "returns True if ns = [5, 3, 18, 1, 4, 12, 21]" $ do
+        symmetric . construct $ [5, 3, 18, 1, 4, 12, 21]
+      it "returns True if ns = [3, 2, 5, 7, 1]" $ do
+        symmetric . construct $ [3, 2, 5, 7, 1]

@@ -92,3 +92,23 @@ module BinaryTrees where
   symmetric :: Tree a -> Bool
   symmetric Empty = True
   symmetric (Branch _ l r) = mirror l r
+
+  {-
+  - 5 Problem 57
+  - (**) Binary search trees (dictionaries)
+  -
+  - Use the predicate add/3, developed in chapter 4 of the course, to write a predicate to construct a binary search tree from a list of integer numbers.
+  -
+  - Example in Haskell:
+  - *Main> construct [3, 2, 5, 7, 1]
+  - Branch 3 (Branch 2 (Branch 1 Empty Empty) Empty) (Branch 5 Empty (Branch 7 Empty Empty))
+  - *Main> symmetric . construct $ [5, 3, 18, 1, 4, 12, 21]
+  - True
+  - *Main> symmetric . construct $ [3, 2, 5, 7, 1]
+  - True
+  -}
+  construct :: [Int] -> Tree Int
+  construct ls = foldl addValue Empty ls
+    where addValue Empty x = leaf x
+          addValue (Branch n l r) x | n > x = Branch n (addValue l x) r
+                                    | otherwise = Branch n l (addValue r x)
