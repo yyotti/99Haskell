@@ -17,6 +17,7 @@ library
       Lists
     , Arithmetic
     , LogicAndCodes
+    , BinaryTrees
   build-depends:
       base    == 4.*
     , random
