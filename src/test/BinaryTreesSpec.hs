@@ -182,6 +182,7 @@ spec = do
       -- FIXME ちょっと時間かかるので少し消しておく
       -- it "returns 1553 patterns when (v, n) = ('x', 15)" $ do
       --   length (hbalTreeNodes 'x' 15) `shouldBe` 1553
+
   describe "Problem 61" $ do
     it "returns 0 when t = E" $ do
       countLeaves Empty `shouldBe` 0
@@ -207,3 +208,29 @@ spec = do
       countLeaves (Branch 'x' (Branch 'x' (Branch 'x' Empty Empty) (Branch 'x' Empty Empty)) (Branch 'x' Empty Empty)) `shouldBe` 3
     it "returns 2 when t = (B 'x' (B 'x' (B 'x' E E) E) (B 'x' (B 'x' E E) E))" $ do
       countLeaves (Branch 'x' (Branch 'x' (Branch 'x' Empty Empty) Empty) (Branch 'x' (Branch 'x' Empty Empty) Empty)) `shouldBe` 2
+
+  describe "Problem 61A" $ do
+    it "returns [] when t = E" $ do
+      leaves Empty `shouldBe` ([] :: [Int])
+    it "returns [1] when t = (B 1 E E)" $ do
+      leaves (Branch 1 Empty Empty) `shouldBe` [1]
+    it "returns [2] when t = (B 1 (B 2 E E) E)" $ do
+      leaves (Branch 1 (Branch 2 Empty Empty) Empty) `shouldBe` [2]
+    it "returns [3] when t = (B 1 E (B 3 E E))" $ do
+      leaves (Branch 1 Empty (Branch 3 Empty Empty)) `shouldBe` [3]
+    it "returns [2, 3] when t = (B 1 (B 2 E E) (B 3 E E))" $ do
+      leaves (Branch 1 (Branch 2 Empty Empty) (Branch 3 Empty Empty)) `shouldBe` [2, 3]
+    it "returns [3, 4] when t = (B 1 (B 2 (B 3 E E) E) (B 4 E E))" $ do
+      leaves (Branch 1 (Branch 2 (Branch 3 Empty Empty) Empty) (Branch 4 Empty Empty)) `shouldBe` [3, 4]
+    it "returns [3, 4] when t = (B 1 (B 2 E (B 3 E E)) (B 4 E E))" $ do
+      leaves (Branch 1 (Branch 2 Empty (Branch 3 Empty Empty)) (Branch 4 Empty Empty)) `shouldBe` [3, 4]
+    it "returns [2, 4] when t = (B 1 (B 2 E E) (B 3 (B 4 E E) E))" $ do
+      leaves (Branch 1 (Branch 2 Empty Empty) (Branch 3 (Branch 4 Empty Empty) Empty)) `shouldBe` [2, 4]
+    it "returns [2, 4] when t = (B 1 (B 2 E E) (B 3 E (B 4 E E)))" $ do
+      leaves (Branch 1 (Branch 2 Empty Empty) (Branch 3 Empty (Branch 4 Empty Empty))) `shouldBe` [2, 4]
+    it "returns [4, 2] when t = (B 1 (B 2 E (B 4 E E)) (B 2 E E))" $ do
+      leaves (Branch 1 (Branch 2 Empty (Branch 4 Empty Empty)) (Branch 2 Empty Empty)) `shouldBe` [4, 2]
+    it "returns [3, 4, 5] when t = (B 1 (B 2 (B 3 E E) (B 4 E E)) (B 5 E E))" $ do
+      leaves (Branch 1 (Branch 2 (Branch 3 Empty Empty) (Branch 4 Empty Empty)) (Branch 5 Empty Empty)) `shouldBe` [3, 4, 5]
+    it "returns [3, 5] when t = (B 1 (B 2 (B 3 E E) E) (B 4 (B 5 E E) E))" $ do
+      leaves (Branch 1 (Branch 2 (Branch 3 Empty Empty) Empty) (Branch 4 (Branch 5 Empty Empty) Empty)) `shouldBe` [3, 5]
