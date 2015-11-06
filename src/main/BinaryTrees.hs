@@ -362,3 +362,52 @@ module BinaryTrees where
           layout' (Branch v l r) (x, y) = (Branch (v, (x', y)) lt rt, nextX)
             where (lt, x') = layout' l (x, y + 1)
                   (rt, nextX) = layout' r (x' + 1, y + 1)
+
+  {-
+  - 8 Problem 65
+  - An alternative layout method is depicted in the illustration below:
+  -
+  - (Image)
+  -
+  - Find out the rules and write the corresponding function.
+  - Hint: On a given level, the horizontal distance between neighboring nodes is constant.
+  -
+  - Use the same conventions as in problem P64 and test your function in an appropriate way.
+  -
+  - Here is the example tree from the above illustration:
+  -
+  - tree65 = Branch 'n'
+  -                 (Branch 'k'
+  -                         (Branch 'c'
+  -                                 (Branch 'a' Empty Empty)
+  -                                 (Branch 'e'
+  -                                         (Branch 'd' Empty Empty)
+  -                                         (Branch 'g' Empty Empty)
+  -                                 )
+  -                         )
+  -                         (Branch 'm' Empty Empty)
+  -                 )
+  -                 (Branch 'u'
+  -                         (Branch 'p'
+  -                                 Empty
+  -                                 (Branch 'q' Empty Empty)
+  -                         )
+  -                         Empty
+  -                 )
+  - Example in Haskell:
+  - > layout tree65
+  - Branch ('n',(15,1)) (Branch ('k',(7,2)) (Branch ('c',(3,3)) ...
+  -}
+  layout2 :: Tree a -> Tree (a, (Int, Int))
+  layout2 t = layout2' t x0 1 (d - 2)
+    where x0 = (sum . map (\n -> 2^(d - n))) [2 .. leftmostNodeDepth t] + 1
+          d = treeDepth t
+          treeDepth Empty = 0
+          treeDepth (Branch _ l r) = max (treeDepth l) (treeDepth r) + 1
+          leftmostNodeDepth :: Tree a -> Int
+          leftmostNodeDepth Empty = 0
+          leftmostNodeDepth (Branch _ l _) = leftmostNodeDepth l + 1
+          layout2' Empty _ _ _ = Empty
+          layout2' (Branch v l r) x depth ex = Branch (v, (x, depth)) left right
+            where left = layout2' l (x - 2^ex) (depth + 1) (ex - 1)
+                  right = (layout2' r (x + 2^ex) (depth + 1) (ex - 1))

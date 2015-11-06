@@ -327,6 +327,8 @@ spec = do
       layout (Branch 'n' Empty (Branch 'k' Empty Empty)) `shouldBe` (Branch ('n', (1, 1)) Empty (Branch ('k', (2, 2)) Empty Empty))
     it "returns (B ('n', (2, 1)) (B ('k', (1, 2)) E E) (B ('u', (3, 2)) E E)) when t = (B 'n' (B 'k' E E) (B 'u' E E))" $ do
       layout (Branch 'n' (Branch 'k' Empty Empty) (Branch 'u' Empty Empty)) `shouldBe` (Branch ('n', (2, 1)) (Branch ('k', (1, 2)) Empty Empty) (Branch ('u', (3, 2)) Empty Empty))
+    it "returns (B ('n', (3, 1)) (B ('k', (2, 2)) E E) (B ('u', (1, 3)) E E)) when t = (B 'n' (B 'k' (B 'u' E E) E) E)" $ do
+      layout (Branch 'n' (Branch 'k' (Branch 'u' Empty Empty) Empty) Empty) `shouldBe` (Branch ('n', (3, 1)) (Branch ('k', (2, 2)) (Branch ('u', (1, 3)) Empty Empty) Empty) Empty)
     it "returns (B ('a', (1, 1)) E (B ('b', (2, 2)) E (B ('c', (3, 3)) E E))) when t = (B 'a' E (B 'b' E (B 'c' E E)))" $ do
       layout (Branch 'a' Empty (Branch 'b' Empty (Branch 'c' Empty Empty))) `shouldBe` (Branch ('a', (1, 1)) Empty (Branch ('b', (2, 2)) Empty (Branch ('c', (3, 3)) Empty Empty)))
     it "returns (B ('a', (3, 1)) (B ('b', (1, 2)) E (B ('c', (2, 3)) E E)) (B ('d', (4, 2) E E))) when t = (B 'a' (B 'b' E (B 'c' E E)) (B 'd' E E))" $ do
@@ -381,3 +383,59 @@ spec = do
                                   Empty
                           )
           in layout tree64 `shouldBe` expected
+
+  describe "Problem 65" $ do
+    it "returns Empty when t = E" $ do
+      layout2 (Empty :: Tree Int) `shouldBe` Empty
+    it "returns (B ('n', (1, 1)) Empty Empty) when t = (B 'n' E E)" $ do
+      layout2 (Branch 'n' Empty Empty) `shouldBe` (Branch ('n', (1, 1)) Empty Empty)
+    it "returns (B ('n', (2, 1)) (B ('k', (1, 2)) E E) E) when t = (B 'n' (B 'k' E E) E)" $ do
+      layout2 (Branch 'n' (Branch 'k' Empty Empty) Empty) `shouldBe` (Branch ('n', (2, 1)) (Branch ('k', (1, 2)) Empty Empty) Empty)
+    it "returns (B ('n', (1, 1)) E (B ('k', (2, 2)) E E)) when t = (B 'n' E (B 'k' E E))" $ do
+      layout2 (Branch 'n' Empty (Branch 'k' Empty Empty)) `shouldBe` (Branch ('n', (1, 1)) Empty (Branch ('k', (2, 2)) Empty Empty))
+    it "returns (B ('n', (2, 1)) (B ('k', (1, 2)) E E) (B ('u', (3, 2)) E E)) when t = (B 'n' (B 'k' E E) (B 'u' E E))" $ do
+      layout2 (Branch 'n' (Branch 'k' Empty Empty) (Branch 'u' Empty Empty)) `shouldBe` (Branch ('n', (2, 1)) (Branch ('k', (1, 2)) Empty Empty) (Branch ('u', (3, 2)) Empty Empty))
+    it "returns (B ('n', (4, 1)) (B ('k', (2, 2)) E E) (B ('u', (1, 3)) E E)) when t = (B 'n' (B 'k' (B 'u' E E) E) E)" $ do
+      layout2 (Branch 'n' (Branch 'k' (Branch 'u' Empty Empty) Empty) Empty) `shouldBe` (Branch ('n', (4, 1)) (Branch ('k', (2, 2)) (Branch ('u', (1, 3)) Empty Empty) Empty) Empty)
+    it "returns (B ('a', (1, 1)) E (B ('b', (3, 2)) E (B ('c', (4, 3)) E E))) when t = (B 'a' E (B 'b' E (B 'c' E E)))" $ do
+      layout2 (Branch 'a' Empty (Branch 'b' Empty (Branch 'c' Empty Empty))) `shouldBe` (Branch ('a', (1, 1)) Empty (Branch ('b', (3, 2)) Empty (Branch ('c', (4, 3)) Empty Empty)))
+    it "returns (B ('a', (3, 1)) (B ('b', (1, 2)) E (B ('c', (2, 3)) E E)) (B ('d', (5, 2) E E))) when t = (B 'a' (B 'b' E (B 'c' E E)) (B 'd' E E))" $ do
+      layout2 (Branch 'a' (Branch 'b' Empty (Branch 'c' Empty Empty)) (Branch 'd' Empty Empty)) `shouldBe` ((Branch ('a', (3, 1)) (Branch ('b', (1, 2)) Empty (Branch ('c', (2, 3)) Empty Empty)) (Branch ('d', (5, 2)) Empty Empty)))
+    it "returns layout when t = tree65(in problem)" $ do
+      let tree65 = Branch 'n'
+                          (Branch 'k'
+                                  (Branch 'c'
+                                          (Branch 'a' Empty Empty)
+                                          (Branch 'e'
+                                                  (Branch 'd' Empty Empty)
+                                                  (Branch 'g' Empty Empty)
+                                          )
+                                  )
+                                  (Branch 'm' Empty Empty)
+                          )
+                          (Branch 'u'
+                                  (Branch 'p'
+                                          Empty
+                                          (Branch 'q' Empty Empty)
+                                  )
+                                  Empty
+                          )
+          expected = Branch ('n', (15, 1))
+                          (Branch ('k', (7, 2))
+                                  (Branch ('c', (3, 3))
+                                          (Branch ('a', (1, 4)) Empty Empty)
+                                          (Branch ('e', (5, 4))
+                                                  (Branch ('d', (4, 5)) Empty Empty)
+                                                  (Branch ('g', (6, 5)) Empty Empty)
+                                          )
+                                  )
+                                  (Branch ('m', (11, 3)) Empty Empty)
+                          )
+                          (Branch ('u', (23, 2))
+                                  (Branch ('p', (19, 3))
+                                          Empty
+                                          (Branch ('q', (21, 4)) Empty Empty)
+                                  )
+                                  Empty
+                          )
+          in layout2 tree65 `shouldBe` expected
