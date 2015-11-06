@@ -260,3 +260,21 @@ spec = do
       internals (Branch (1 :: Int) (Branch 2 (Branch 3 Empty Empty) (Branch 4 Empty Empty)) (Branch 5 Empty Empty)) `shouldBe` [1, 2]
     it "returns [1, 2, 4] when t = (B 1 (B 2 (B 3 E E) E) (B 4 (B 5 E E) E))" $ do
       internals (Branch (1 :: Int) (Branch 2 (Branch 3 Empty Empty) Empty) (Branch 4 (Branch 5 Empty Empty) Empty)) `shouldBe` [1, 2, 4]
+
+  describe "Problem 62B" $ do
+    it "returns [] when (t, n) = (E, 1)" $ do
+      atLevel Empty 1 `shouldBe` ([] :: [Int])
+    it "returns [1] when (t, n) = ((B 1 E E), 1)" $ do
+      atLevel (Branch (1 :: Int) Empty Empty) 1 `shouldBe` [1]
+    it "returns [] when (t, n) = ((B 1 E E), 2)" $ do
+      atLevel (Branch (1 :: Int) Empty Empty) 2 `shouldBe` []
+    it "returns [] when (t, n) = ((B 1 (B 2 E (B 4 E E)) (B 2 E E)), 0)" $ do
+      atLevel (Branch (1 :: Int) (Branch 2 Empty (Branch 4 Empty Empty)) (Branch 2 Empty Empty)) 0 `shouldBe` []
+    it "returns [1] when (t, n) = ((B 1 (B 2 E (B 4 E E)) (B 2 E E)), 1)" $ do
+      atLevel (Branch (1 :: Int) (Branch 2 Empty (Branch 4 Empty Empty)) (Branch 2 Empty Empty)) 1 `shouldBe` [1]
+    it "returns [2, 2] when (t, n) = ((B 1 (B 2 E (B 4 E E)) (B 2 E E)), 2)" $ do
+      atLevel (Branch (1 :: Int) (Branch 2 Empty (Branch 4 Empty Empty)) (Branch 2 Empty Empty)) 2 `shouldBe` [2, 2]
+    it "returns [4] when (t, n) = ((B 1 (B 2 E (B 4 E E)) (B 2 E E)), 3)" $ do
+      atLevel (Branch (1 :: Int) (Branch 2 Empty (Branch 4 Empty Empty)) (Branch 2 Empty Empty)) 3 `shouldBe` [4]
+    it "returns [] when (t, n) = ((B 1 (B 2 E (B 4 E E)) (B 2 E E)), 4)" $ do
+      atLevel (Branch (1 :: Int) (Branch 2 Empty (Branch 4 Empty Empty)) (Branch 2 Empty Empty)) 4 `shouldBe` []
