@@ -484,3 +484,76 @@ spec = do
       it "returns same tree" $ do
         let t = Branch 'a' (Branch 'b' Empty (Branch 'c' Empty Empty)) (Branch 'd' (Branch 'e' (Branch 'f' Empty Empty) (Branch 'g' Empty Empty)) (Branch 'h' Empty Empty))
             in (stringToTree . treeToString) t `shouldBe` t
+
+  describe "Problem 68" $ do
+    describe "treeToPreorder" $ do
+      it "returns [] when t = E" $ do
+        treeToPreorder (Empty :: Tree Int) `shouldBe` []
+      it "returns [1] when t = (B 1 E E)" $ do
+        treeToPreorder (Branch (1 :: Int) Empty Empty) `shouldBe` [1]
+      it "returns [1, 2] when t = (B 1 (B 2 E E) E)" $ do
+        treeToPreorder (Branch (1 :: Int) (Branch 2 Empty Empty) Empty) `shouldBe` [1, 2]
+      it "returns [1, 3] when t = (B 1 E (B 3 E E))" $ do
+        treeToPreorder (Branch (1 :: Int) Empty (Branch 3 Empty Empty)) `shouldBe` [1, 3]
+      it "returns [1, 2, 3] when t = (B 1 (B 2 E E) (B 3 E E))" $ do
+        treeToPreorder (Branch (1 :: Int) (Branch 2 Empty Empty) (Branch 3 Empty Empty)) `shouldBe` [1, 2, 3]
+      it "returns [1, 2, 3] when t = (B 1 (B 2 (B 3 E E) E) E)" $ do
+        treeToPreorder (Branch (1 :: Int) (Branch 2 (Branch 3 Empty Empty) Empty) Empty) `shouldBe` [1, 2, 3]
+      it "returns [1, 2, 3] when t = (B 1 E (B 2 E (B 3 E E)))" $ do
+        treeToPreorder (Branch (1 :: Int) Empty (Branch 2 Empty (Branch 3 Empty Empty))) `shouldBe` [1, 2, 3]
+      it "returns [1, 2, 3, 4] when t = (B 1 (B 2 E (B 3 E E)) (B 4 E E))" $ do
+        treeToPreorder (Branch (1 :: Int) (Branch 2 Empty (Branch 3 Empty Empty)) (Branch 4 Empty Empty)) `shouldBe` [1, 2, 3, 4]
+      it "returns [1, 2, 4, 5, 3, 6, 7] when t = (B 1 (B 2 (B 3 E E) (B 4 E E)) (B 5 E (B 6 (B 7 E E) E)))" $ do
+        treeToPreorder (Branch (1 :: Int) (Branch 2 (Branch 4 Empty Empty) (Branch 5 Empty Empty)) (Branch 3 Empty (Branch 6 (Branch 7 Empty Empty) Empty))) `shouldBe` [1, 2, 4, 5, 3, 6, 7]
+    describe "treeToInorder" $ do
+      it "returns [] when t = E" $ do
+        treeToInorder (Empty :: Tree Int) `shouldBe` []
+      it "returns [1] when t = (B 1 E E)" $ do
+        treeToInorder (Branch (1 :: Int) Empty Empty) `shouldBe` [1]
+      it "returns [2, 1] when t = (B 1 (B 2 E E) E)" $ do
+        treeToInorder (Branch (1 :: Int) (Branch 2 Empty Empty) Empty) `shouldBe` [2, 1]
+      it "returns [1, 3] when t = (B 1 E (B 3 E E))" $ do
+        treeToInorder (Branch (1 :: Int) Empty (Branch 3 Empty Empty)) `shouldBe` [1, 3]
+      it "returns [2, 1, 3] when t = (B 1 (B 2 E E) (B 3 E E))" $ do
+        treeToInorder (Branch (1 :: Int) (Branch 2 Empty Empty) (Branch 3 Empty Empty)) `shouldBe` [2, 1, 3]
+      it "returns [3, 2, 1] when t = (B 1 (B 2 (B 3 E E) E) E)" $ do
+        treeToInorder (Branch (1 :: Int) (Branch 2 (Branch 3 Empty Empty) Empty) Empty) `shouldBe` [3, 2, 1]
+      it "returns [1, 2, 3] when t = (B 1 E (B 2 E (B 3 E E)))" $ do
+        treeToInorder (Branch (1 :: Int) Empty (Branch 2 Empty (Branch 3 Empty Empty))) `shouldBe` [1, 2, 3]
+      it "returns [2, 3, 1, 4] when t = (B 1 (B 2 E (B 3 E E)) (B 4 E E))" $ do
+        treeToInorder (Branch (1 :: Int) (Branch 2 Empty (Branch 3 Empty Empty)) (Branch 4 Empty Empty)) `shouldBe` [2, 3, 1, 4]
+      it "returns [4, 2, 5, 1, 3, 7, 6] when t = (B 1 (B 2 (B 3 E E) (B 4 E E)) (B 5 E (B 6 (B 7 E E) E)))" $ do
+        treeToInorder (Branch (1 :: Int) (Branch 2 (Branch 4 Empty Empty) (Branch 5 Empty Empty)) (Branch 3 Empty (Branch 6 (Branch 7 Empty Empty) Empty))) `shouldBe` [4, 2, 5, 1, 3, 7, 6]
+    describe "preInTree" $ do
+      it "returns E when (po, io) = ([], [])" $ do
+        preInTree ([] :: [Char]) [] `shouldBe` Empty
+      it "returns E when (po, io) = ([1], [])" $ do
+        preInTree [1 :: Int] [] `shouldBe` Empty
+      it "returns E when (po, io) = ([], [1])" $ do
+        preInTree [] [1 :: Int] `shouldBe` Empty
+      it "returns E when (po, io) = ([1, 2], [1])" $ do
+        preInTree [1 :: Int, 2] [1] `shouldBe` Empty
+      it "returns E when (po, io) = ([1], [1, 2])" $ do
+        preInTree [1 :: Int] [1, 2] `shouldBe` Empty
+      it "returns (B 1 E E) when (po, io) = ([1], [1])" $ do
+        preInTree [1 :: Int] [1] `shouldBe` (Branch 1 Empty Empty)
+      it "returns (B 1 (B 2 E E) E) when (po, io) = ([1, 2], [2, 1])" $ do
+        preInTree [1 :: Int, 2] [2, 1] `shouldBe` (Branch 1 (Branch 2 Empty Empty) Empty)
+      it "returns (B 1 E (B 3 E E)) when (po, io) = ([1, 3], [1, 3])" $ do
+        preInTree [1 :: Int, 3] [1, 3] `shouldBe` (Branch 1 Empty (Branch 3 Empty Empty))
+      it "returns (B 1 (B 2 E E) (B 3 E E)) when (po, io) = ([1, 2, 3], [2, 1, 3])" $ do
+        preInTree [1 :: Int, 2, 3] [2, 1, 3] `shouldBe` (Branch 1 (Branch 2 Empty Empty) (Branch 3 Empty Empty))
+      it "returns (B 1 (B 2 (B 3 E E) E) E) when (po, io) = ([1, 2, 3], [3, 2, 1])" $ do
+        preInTree [1 :: Int, 2, 3] [3, 2, 1] `shouldBe` (Branch 1 (Branch 2 (Branch 3 Empty Empty) Empty) Empty)
+      it "returns (B 1 (B 2 (B 3 E E) E) E) when (po, io) = ([1, 2, 3], [1, 2, 3])" $ do
+        preInTree [1 :: Int, 2, 3] [1, 2, 3] `shouldBe` (Branch 1 Empty (Branch 2 Empty (Branch 3 Empty Empty)))
+      it "returns (B 1 (B 2 E (B 3 E E)) (B 4 E E)) when (po, io) = ([1, 2, 3, 4], [2, 3, 1, 4])" $ do
+        preInTree [1 :: Int, 2, 3, 4] [2, 3, 1, 4] `shouldBe` (Branch 1 (Branch 2 Empty (Branch 3 Empty Empty)) (Branch 4 Empty Empty))
+      it "returns (B 1 (B 2 E (B 3 E E)) (B 4 E E)) when (po, io) = ([1, 2, 3, 4, 5, 6, 7], [4, 2, 5, 1, 3, 7, 6])" $ do
+        preInTree [1 :: Int, 2, 4, 5, 3, 6, 7] [4, 2, 5, 1, 3, 7, 6] `shouldBe` (Branch 1 (Branch 2 (Branch 4 Empty Empty) (Branch 5 Empty Empty)) (Branch 3 Empty (Branch 6 (Branch 7 Empty Empty) Empty)))
+    describe "treeToPreorder + treeToInorder + preInTree" $ do
+      it "returns (B 'a' (B 'b' (B 'd' E E) (B 'e' E E)) (B 'c' E (B 'f' (B 'g' E E) E)))" $ do
+        let t = Branch 'a' (Branch 'b' (Branch 'd' Empty Empty) (Branch 'e' Empty Empty)) (Branch 'c' Empty (Branch 'f' (Branch 'g' Empty Empty) Empty))
+            po = treeToPreorder t
+            io = treeToInorder t
+            in preInTree po io `shouldBe` t
