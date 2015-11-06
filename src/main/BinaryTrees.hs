@@ -359,8 +359,6 @@ module BinaryTrees where
   layout :: Tree a -> Tree (a, (Int, Int))
   layout t = fst $ layout' t (1, 1)
     where layout' Empty (x, _) = (Empty, x)
-          layout' (Branch v l r) (x, y) = let
-                                            (lt, x') = layout' l (x, y + 1)
-                                            (rt, nextX) = layout' r (x' + 1, y + 1)
-                                          in
-                                             (Branch (v, (x', y)) lt rt, nextX)
+          layout' (Branch v l r) (x, y) = (Branch (v, (x', y)) lt rt, nextX)
+            where (lt, x') = layout' l (x, y + 1)
+                  (rt, nextX) = layout' r (x' + 1, y + 1)
