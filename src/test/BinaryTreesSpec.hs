@@ -278,3 +278,40 @@ spec = do
       atLevel (Branch (1 :: Int) (Branch 2 Empty (Branch 4 Empty Empty)) (Branch 2 Empty Empty)) 3 `shouldBe` [4]
     it "returns [] when (t, n) = ((B 1 (B 2 E (B 4 E E)) (B 2 E E)), 4)" $ do
       atLevel (Branch (1 :: Int) (Branch 2 Empty (Branch 4 Empty Empty)) (Branch 2 Empty Empty)) 4 `shouldBe` []
+
+  describe "Problem 63" $ do
+    describe "completeBinaryTree" $ do
+      it "returns Empty when n = 0" $ do
+        completeBinaryTree 0 `shouldBe` Empty
+      it "returns (B 'x' E E) when n = 1" $ do
+        completeBinaryTree 1 `shouldBe` Branch 'x' Empty Empty
+      it "returns (B 'x' (B 'x' E E) E) when n = 2" $ do
+        completeBinaryTree 2 `shouldBe` Branch 'x' (Branch 'x' Empty Empty) Empty
+      it "returns (B 'x' (B 'x' E E) (B 'x' E E)) when n = 3" $ do
+        completeBinaryTree 3 `shouldBe` Branch 'x' (Branch 'x' Empty Empty) (Branch 'x' Empty Empty)
+      it "returns (B 'x' (B 'x' (B 'x' E E) E) (B 'x' E E)) when n = 4" $ do
+        completeBinaryTree 4 `shouldBe` Branch 'x' (Branch 'x' (Branch 'x' Empty Empty) Empty) (Branch 'x' Empty Empty)
+      it "returns (B 'x' (B 'x' (B 'x' E E) (B 'x' E E)) (B 'x' E E)) when n = 5" $ do
+        completeBinaryTree 5 `shouldBe` Branch 'x' (Branch 'x' (Branch 'x' Empty Empty) (Branch 'x' Empty Empty)) (Branch 'x' Empty Empty)
+      it "returns (B 'x' (B 'x' (B 'x' E E) (B 'x' E E)) (B 'x' (B 'x' E E) E)) when n = 6" $ do
+        completeBinaryTree 6 `shouldBe` Branch 'x' (Branch 'x' (Branch 'x' Empty Empty) (Branch 'x' Empty Empty)) (Branch 'x' (Branch 'x' Empty Empty) Empty)
+      it "returns (B 'x' (B 'x' (B 'x' E E) (B 'x' E E)) (B 'x' (B 'x' E E) (B 'x' E E))) when n = 7" $ do
+        completeBinaryTree 7 `shouldBe` Branch 'x' (Branch 'x' (Branch 'x' Empty Empty) (Branch 'x' Empty Empty)) (Branch 'x' (Branch 'x' Empty Empty) (Branch 'x' Empty Empty))
+    describe "isCompleteBinaryTree" $ do
+      it "returns True when t = Empty" $ do
+        isCompleteBinaryTree Empty `shouldBe` True
+      it "returns True when t = (B 'x' E E)" $ do
+        isCompleteBinaryTree (Branch 'x' Empty Empty) `shouldBe` True
+      it "returns True when t = (B 'x' (B 'x' E E) E)" $ do
+        isCompleteBinaryTree (Branch 'x' (Branch 'x' Empty Empty) Empty) `shouldBe` True
+      it "returns False when t = (B 'x' E (B 'x' E E))" $ do
+        isCompleteBinaryTree (Branch 'x' Empty (Branch 'x' Empty Empty)) `shouldBe` False
+      it "returns True when t = (B 'x' (B 'x' E E) (B 'x' E E))" $ do
+        isCompleteBinaryTree (Branch 'x' (Branch 'x' Empty Empty) (Branch 'x' Empty Empty)) `shouldBe` True
+      it "returns True when t = (B 'x' (B 'x' (B 'x' E E) E) (B 'x' E E))" $ do
+        isCompleteBinaryTree (Branch 'x' (Branch 'x' (Branch 'x' Empty Empty) Empty) (Branch 'x' Empty Empty)) `shouldBe` True
+      it "returns False when t = (B 'x' (B 'x' E (B 'x' E E)) (B 'x' E E))" $ do
+        isCompleteBinaryTree (Branch 'x' (Branch 'x' Empty (Branch 'x' Empty Empty)) (Branch 'x' Empty Empty)) `shouldBe` False
+    describe "isCompleteBinaryTree + completeBinaryTree" $ do
+      it "returns True" $ do
+        isCompleteBinaryTree (completeBinaryTree 4) `shouldBe` True
