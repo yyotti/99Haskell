@@ -439,3 +439,7 @@ spec = do
                                   Empty
                           )
           in layout2 tree65 `shouldBe` expected
+
+  describe "Problem 66" $ do
+    it "pass" $ do
+      True `shouldBe` True
