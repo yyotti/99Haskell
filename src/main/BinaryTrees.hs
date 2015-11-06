@@ -434,3 +434,38 @@ module BinaryTrees where
   -}
   layout3 :: Tree a -> Tree (a, (Int, Int))
   layout3 _ = undefined
+
+  {-
+  - 10 Problem 67A
+  - A string representation of binary trees
+  -
+  - Somebody represents binary trees as strings of the following type:
+  -
+  - a(b(d,e),c(,f(g,)))
+  -
+  - a) Write a Prolog predicate which generates this string representation, if the tree is given as usual (as nil or t(X,L,R) term).
+  -    Then write a predicate which does this inverse; i.e. given the string representation, construct the tree in the usual form.
+  -    Finally, combine the two predicates in a single predicate tree_string/2 which can be used in both directions.
+  -
+  - Example in Haskell:
+  - Main> stringToTree "x(y,a(,b))" >>= print
+  - Branch 'x' (Branch 'y' Empty Empty) (Branch 'a' Empty (Branch 'b' Empty Empty))
+  - Main> let t = cbtFromList ['a'..'z'] in stringToTree (treeToString t) >>= print . (== t)
+  - True
+  -}
+  treeToString :: Tree Char -> String
+  treeToString Empty = ""
+  treeToString (Branch v Empty Empty) = [v]
+  treeToString (Branch v l r) = v:"(" ++ treeToString l ++ "," ++ treeToString r ++ ")"
+
+  stringToTree :: String -> Tree Char
+  stringToTree "" = Empty
+  stringToTree [c] = leaf c
+  stringToTree s = (snd . stringToTree') s
+    where stringToTree' (c:cs) | c == ',' || c == ')' = (c:cs, Empty)
+          stringToTree' (c1:c2:cs) | c2 == ',' || c2 == ')' = (c2:cs, leaf c1)
+                                   | c2 == '(' = let
+                                                      (',':cs', l) = stringToTree' cs
+                                                      (')':cs'', r) = stringToTree' cs'
+                                                    in (cs'', Branch c1 l r)
+          stringToTree' _ = error "illegal format"

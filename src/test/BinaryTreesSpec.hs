@@ -2,6 +2,7 @@ module BinaryTreesSpec (main, spec) where
 
 import Test.Hspec
 import BinaryTrees
+import Control.Exception (evaluate)
 
 main :: IO ()
 main = hspec spec
@@ -443,3 +444,43 @@ spec = do
   describe "Problem 66" $ do
     it "pass" $ do
       True `shouldBe` True
+
+  describe "Problem 67A" $ do
+    describe "treeToString" $ do
+      it "returns \"\" when t = E" $ do
+        treeToString Empty `shouldBe` ""
+      it "returns \"a\" when t = (B 'a' E E)" $ do
+        treeToString (Branch 'a' Empty Empty) `shouldBe` "a"
+      it "returns \"a(b,)\" when t = (B 'a' (B 'b' E E) E)" $ do
+        treeToString (Branch 'a' (Branch 'b' Empty Empty) Empty) `shouldBe` "a(b,)"
+      it "returns \"a(,c)\" when t = (B 'a' E (B 'c' E E))" $ do
+        treeToString (Branch 'a' Empty (Branch 'c' Empty Empty)) `shouldBe` "a(,c)"
+      it "returns \"a(b,c)\" when t = (B 'a' (B 'b' E E) (B 'c' E E))" $ do
+        treeToString (Branch 'a' (Branch 'b' Empty Empty) (Branch 'c' Empty Empty)) `shouldBe` "a(b,c)"
+      it "returns \"a(b(,c),d)\" when t = (B 'a' (B 'b' E (B 'c' E E)) (B 'd' E E))" $ do
+        treeToString (Branch 'a' (Branch 'b' Empty (Branch 'c' Empty Empty)) (Branch 'd' Empty Empty)) `shouldBe` "a(b(,c),d)"
+      it "returns \"a(b(d,e),c(,f(g,)))\" when t = (B 'a' (B 'b' (B 'd' E E) (B 'e' E E)) (B 'c' E (B 'f' (B 'g' E E) E)))" $ do
+        treeToString (Branch 'a' (Branch 'b' (Branch 'd' Empty Empty) (Branch 'e' Empty Empty)) (Branch 'c' Empty (Branch 'f' (Branch 'g' Empty Empty) Empty))) `shouldBe` "a(b(d,e),c(,f(g,)))"
+    describe "stringToTree" $ do
+      it "returns E when s = \"\"" $ do
+        stringToTree "" `shouldBe` Empty
+      it "returns (B 'a' E E) when s = \"a\"" $ do
+        stringToTree "a" `shouldBe` (Branch 'a' Empty Empty)
+      it "returns (B 'a' (B 'b' E E) E) when s = \"a(b,)\"" $ do
+        stringToTree "a(b,)" `shouldBe` (Branch 'a' (Branch 'b' Empty Empty) Empty)
+      it "returns (B 'a' E (B 'c' E E)) when s = \"a(,c)\"" $ do
+        stringToTree "a(,c)" `shouldBe` (Branch 'a' Empty (Branch 'c' Empty Empty))
+      it "returns (B 'a' (B 'b' E E) (B 'c' E E)) when s = \"a(b,c)\"" $ do
+        stringToTree "a(b,c)" `shouldBe` (Branch 'a' (Branch 'b' Empty Empty) (Branch 'c' Empty Empty))
+      it "returns (B 'a' (B 'b' E (B 'c' E E)) (B 'd' E E)) when s = \"a(b(,c),d)\"" $ do
+        stringToTree "a(b(,c),d)" `shouldBe` (Branch 'a' (Branch 'b' Empty (Branch 'c' Empty Empty)) (Branch 'd' Empty Empty))
+      it "returns (B 'a' (B 'b' (B 'd' E E) (B 'e' E E)) (B 'c' E (B 'f' (B 'g' E E) E))) when s = \"a(b(d,e),c(,f(g,)))\"" $ do
+        stringToTree "a(b(d,e),c(,f(g,)))" `shouldBe` (Branch 'a' (Branch 'b' (Branch 'd' Empty Empty) (Branch 'e' Empty Empty)) (Branch 'c' Empty (Branch 'f' (Branch 'g' Empty Empty) Empty)))
+      it "returns (B 'x' (B 'y' E E) (B 'a' E (B 'b' E E))) when s = \"x(y,a(,b))\"" $ do
+        stringToTree "x(y,a(,b))" `shouldBe` (Branch 'x' (Branch 'y' Empty Empty) (Branch 'a' Empty (Branch 'b' Empty Empty)))
+      it "throws exception when s = \"xy,a(,b))\" (illegal format)" $ do
+        evaluate (stringToTree "xy,a(,b))" ) `shouldThrow` errorCall "illegal format"
+    describe "treeToString + stringToTree" $ do
+      it "returns same tree" $ do
+        let t = Branch 'a' (Branch 'b' Empty (Branch 'c' Empty Empty)) (Branch 'd' (Branch 'e' (Branch 'f' Empty Empty) (Branch 'g' Empty Empty)) (Branch 'h' Empty Empty))
+            in (stringToTree . treeToString) t `shouldBe` t
