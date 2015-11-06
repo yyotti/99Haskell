@@ -315,3 +315,69 @@ spec = do
     describe "isCompleteBinaryTree + completeBinaryTree" $ do
       it "returns True" $ do
         isCompleteBinaryTree (completeBinaryTree 4) `shouldBe` True
+
+  describe "Problem 64" $ do
+    it "returns Empty when t = E" $ do
+      layout (Empty :: Tree Char) `shouldBe` Empty
+    it "returns (B ('n', (1, 1)) Empty Empty) when t = (B 'n' E E)" $ do
+      layout (Branch 'n' Empty Empty) `shouldBe` (Branch ('n', (1, 1)) Empty Empty)
+    it "returns (B ('n', (2, 1)) (B ('k', (1, 2)) E E) E) when t = (B 'n' (B 'k' E E) E)" $ do
+      layout (Branch 'n' (Branch 'k' Empty Empty) Empty) `shouldBe` (Branch ('n', (2, 1)) (Branch ('k', (1, 2)) Empty Empty) Empty)
+    it "returns (B ('n', (1, 1)) E (B ('k', (2, 2)) E E)) when t = (B 'n' E (B 'k' E E))" $ do
+      layout (Branch 'n' Empty (Branch 'k' Empty Empty)) `shouldBe` (Branch ('n', (1, 1)) Empty (Branch ('k', (2, 2)) Empty Empty))
+    it "returns (B ('n', (2, 1)) (B ('k', (1, 2)) E E) (B ('u', (3, 2)) E E)) when t = (B 'n' (B 'k' E E) (B 'u' E E))" $ do
+      layout (Branch 'n' (Branch 'k' Empty Empty) (Branch 'u' Empty Empty)) `shouldBe` (Branch ('n', (2, 1)) (Branch ('k', (1, 2)) Empty Empty) (Branch ('u', (3, 2)) Empty Empty))
+    it "returns (B ('a', (1, 1)) E (B ('b', (2, 2)) E (B ('c', (3, 3)) E E))) when t = (B 'a' E (B 'b' E (B 'c' E E)))" $ do
+      layout (Branch 'a' Empty (Branch 'b' Empty (Branch 'c' Empty Empty))) `shouldBe` (Branch ('a', (1, 1)) Empty (Branch ('b', (2, 2)) Empty (Branch ('c', (3, 3)) Empty Empty)))
+    it "returns (B ('a', (3, 1)) (B ('b', (1, 2)) E (B ('c', (2, 3)) E E)) (B ('d', (4, 2) E E))) when t = (B 'a' (B 'b' E (B 'c' E E)) (B 'd' E E))" $ do
+      layout (Branch 'a' (Branch 'b' Empty (Branch 'c' Empty Empty)) (Branch 'd' Empty Empty)) `shouldBe` ((Branch ('a', (3, 1)) (Branch ('b', (1, 2)) Empty (Branch ('c', (2, 3)) Empty Empty)) (Branch ('d', (4, 2)) Empty Empty)))
+    it "returns layout when t = tree64(in problem)" $ do
+      let tree64 = Branch 'n'
+                          (Branch 'k'
+                                  (Branch 'c'
+                                          (Branch 'a' Empty Empty)
+                                          (Branch 'h'
+                                                  (Branch 'g'
+                                                          (Branch 'e' Empty Empty)
+                                                          Empty
+                                                  )
+                                                  Empty
+                                          )
+                                  )
+                                  (Branch 'm' Empty Empty)
+                          )
+                          (Branch 'u'
+                                  (Branch 'p'
+                                          Empty
+                                          (Branch 's'
+                                                  (Branch 'q' Empty Empty)
+                                                  Empty
+                                          )
+                                  )
+                                  Empty
+                          )
+          expected = Branch ('n', (8, 1))
+                          (Branch ('k', (6, 2))
+                                  (Branch ('c', (2, 3))
+                                          (Branch ('a', (1, 4)) Empty Empty)
+                                          (Branch ('h', (5, 4))
+                                                  (Branch ('g', (4, 5))
+                                                          (Branch ('e', (3, 6)) Empty Empty)
+                                                          Empty
+                                                  )
+                                                  Empty
+                                          )
+                                  )
+                                  (Branch ('m', (7, 3)) Empty Empty)
+                          )
+                          (Branch ('u', (12, 2))
+                                  (Branch ('p', (9, 3))
+                                          Empty
+                                          (Branch ('s', (11, 4))
+                                                  (Branch ('q', (10, 5)) Empty Empty)
+                                                  Empty
+                                          )
+                                  )
+                                  Empty
+                          )
+          in layout tree64 `shouldBe` expected
