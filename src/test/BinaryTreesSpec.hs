@@ -557,3 +557,51 @@ spec = do
             po = treeToPreorder t
             io = treeToInorder t
             in preInTree po io `shouldBe` t
+
+  describe "Problem 69" $ do
+    describe "ds2tree" $ do
+      it "returns (E, \"\") when s = \".\"" $ do
+        ds2tree "." `shouldBe` (Empty, "")
+      it "returns (E, \"\") when s = \"a.\"" $ do
+        ds2tree "a." `shouldBe` ((Branch 'a' Empty Empty), "")
+      it "returns ((B 'a' E E), \"\") when s = \"a..\"" $ do
+        ds2tree "a.." `shouldBe` ((Branch 'a' Empty Empty), "")
+      it "returns (E, \".\") when s = \"a...\"" $ do
+        ds2tree "a..." `shouldBe` ((Branch 'a' Empty Empty), ".")
+      it "returns ((B 'a' (B 'b' E E) E), \"\") when s = \"ab...\"" $ do
+        ds2tree "ab..." `shouldBe` ((Branch 'a' (Branch 'b' Empty Empty) Empty), "")
+      it "returns ((B 'a' E (B 'c' E E)), \"\") when s = \"a.c..\"" $ do
+        ds2tree "a.c.." `shouldBe` ((Branch 'a' Empty (Branch 'c' Empty Empty)), "")
+      it "returns ((B 'a' (B 'b' E E) (B 'c' E E)), \"\") when s = \"ab..c..\"" $ do
+        ds2tree "ab..c.." `shouldBe` ((Branch 'a' (Branch 'b' Empty Empty) (Branch 'c' Empty Empty)), "")
+      it "returns ((B 'a' (B 'b' (B 'c' E E) E) E), \"\") when s = \"abc....\"" $ do
+        ds2tree "abc...." `shouldBe` ((Branch 'a' (Branch 'b' (Branch 'c' Empty Empty) Empty) Empty), "")
+      it "returns ((B 'a' E (B 'b' E (B 'c' E E))), \"\") when s = \"a.b.c..\"" $ do
+        ds2tree "a.b.c.." `shouldBe` ((Branch 'a' Empty (Branch 'b' Empty (Branch 'c' Empty Empty))), "")
+      it "returns ((B 'a' (B 'b' E (B 'c' E E)) (B 'd' E E)), \"\") when s = \"ab.c..d..\"" $ do
+        ds2tree "ab.c..d.." `shouldBe` ((Branch 'a' (Branch 'b' Empty (Branch 'c' Empty Empty)) (Branch 'd' Empty Empty)), "")
+      it "returns ((B 'a' (B 'b' (B 'd' E E) (B 'e' E E)) (B 'c' E (B 'f' (B 'g' E E) E))), \"\") when s = \"abd..e..c.fg...\"" $ do
+        ds2tree "abd..e..c.fg..." `shouldBe` ((Branch 'a' (Branch 'b' (Branch 'd' Empty Empty) (Branch 'e' Empty Empty)) (Branch 'c' Empty (Branch 'f' (Branch 'g' Empty Empty) Empty))), "")
+    describe "tree2ds" $ do
+      it "returns \".\" when t = E" $ do
+        tree2ds (Empty :: Tree Char) `shouldBe` "."
+      it "returns \"a..\" when t = (B 'a' E E)" $ do
+        tree2ds (Branch 'a' Empty Empty) `shouldBe` "a.."
+      it "returns \"ab...\" when t = (B 'a' (B 'b' E E) E)" $ do
+        tree2ds (Branch 'a' (Branch 'b' Empty Empty) Empty) `shouldBe` "ab..."
+      it "returns \"a.c..\" when t = (B 'a' E (B 'c' E E))" $ do
+        tree2ds (Branch 'a' Empty (Branch 'c' Empty Empty)) `shouldBe` "a.c.."
+      it "returns \"ab..c..\" when t = (B 'a' (B 'b' E E) (B 'c' E E))" $ do
+        tree2ds (Branch 'a' (Branch 'b' Empty Empty) (Branch 'c' Empty Empty)) `shouldBe` "ab..c.."
+      it "returns \"abc....\" when t = (B 'a' (B 'b' (B 'c' E E) E) E)" $ do
+        tree2ds (Branch 'a' (Branch 'b' (Branch 'c' Empty Empty) Empty) Empty) `shouldBe` "abc...."
+      it "returns \"a.b.c..\" when t = (B 'a' E (B 'b' E (B 'c' E E)))" $ do
+        tree2ds (Branch 'a' Empty (Branch 'b' Empty (Branch 'c' Empty Empty))) `shouldBe` "a.b.c.."
+      it "returns \"ab.c..d..\" when t = (B 'a' (B 'b' E (B 'c' E E)) (B 'd' E E))" $ do
+        tree2ds (Branch 'a' (Branch 'b' Empty (Branch 'c' Empty Empty)) (Branch 'd' Empty Empty)) `shouldBe` "ab.c..d.."
+      it "returns \"abd..e..c.fg...\" when t = (B 'a' (B 'b' (B 'd' E E) (B 'e' E E)) (B 'c' E (B 'f' (B 'g' E E) E)))" $ do
+        tree2ds (Branch 'a' (Branch 'b' (Branch 'd' Empty Empty) (Branch 'e' Empty Empty)) (Branch 'c' Empty (Branch 'f' (Branch 'g' Empty Empty) Empty))) `shouldBe` "abd..e..c.fg..."
+    describe "tree2ds + ds2tree" $ do
+      it "returns same tree" $ do
+        let t = Branch 'a' (Branch 'b' Empty (Branch 'c' Empty Empty)) (Branch 'd' (Branch 'e' (Branch 'f' Empty Empty) (Branch 'g' Empty Empty)) (Branch 'h' Empty Empty))
+            in (fst . ds2tree . tree2ds) t `shouldBe` t
