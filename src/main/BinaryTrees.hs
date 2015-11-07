@@ -1,5 +1,7 @@
 module BinaryTrees where
   import Data.List
+  import Text.Parsec.String
+  import Text.Parsec hiding (Empty)
 
   data Tree a = Empty | Branch a (Tree a) (Tree a) deriving (Show, Eq)
 
@@ -523,12 +525,21 @@ module BinaryTrees where
   -  > tree2ds (Branch 'x' (Branch 'y' Empty Empty) (Branch 'z' (Branch '0' Empty Empty) Empty))
   -  "xy..z0..."
   -}
-  ds2tree :: String -> (Tree Char, String)
-  ds2tree [] = (Empty, "")
-  ds2tree ('.':cs) = (Empty, cs)
-  ds2tree (c:cs) = (Branch c l r, cs'')
-    where (l, cs') = ds2tree cs
-          (r, cs'') = ds2tree cs'
+  ds2tree :: String -> Tree Char
+  ds2tree s =
+    case parse tree "" s of
+         Right t -> t
+         Left e -> error (show e)
+      where tree :: Parser (Tree Char)
+            tree = branch <|> empty
+            branch = do
+              c <- letter
+              l <- tree
+              r <- tree
+              return $ Branch c l r
+            empty = do
+                char '.'
+                return Empty
 
   tree2ds :: Tree Char -> String
   tree2ds Empty = "."

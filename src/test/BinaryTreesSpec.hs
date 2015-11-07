@@ -560,28 +560,28 @@ spec = do
 
   describe "Problem 69" $ do
     describe "ds2tree" $ do
-      it "returns (E, \"\") when s = \".\"" $ do
-        ds2tree "." `shouldBe` (Empty, "")
-      it "returns (E, \"\") when s = \"a.\"" $ do
-        ds2tree "a." `shouldBe` ((Branch 'a' Empty Empty), "")
-      it "returns ((B 'a' E E), \"\") when s = \"a..\"" $ do
-        ds2tree "a.." `shouldBe` ((Branch 'a' Empty Empty), "")
-      it "returns (E, \".\") when s = \"a...\"" $ do
-        ds2tree "a..." `shouldBe` ((Branch 'a' Empty Empty), ".")
-      it "returns ((B 'a' (B 'b' E E) E), \"\") when s = \"ab...\"" $ do
-        ds2tree "ab..." `shouldBe` ((Branch 'a' (Branch 'b' Empty Empty) Empty), "")
-      it "returns ((B 'a' E (B 'c' E E)), \"\") when s = \"a.c..\"" $ do
-        ds2tree "a.c.." `shouldBe` ((Branch 'a' Empty (Branch 'c' Empty Empty)), "")
-      it "returns ((B 'a' (B 'b' E E) (B 'c' E E)), \"\") when s = \"ab..c..\"" $ do
-        ds2tree "ab..c.." `shouldBe` ((Branch 'a' (Branch 'b' Empty Empty) (Branch 'c' Empty Empty)), "")
-      it "returns ((B 'a' (B 'b' (B 'c' E E) E) E), \"\") when s = \"abc....\"" $ do
-        ds2tree "abc...." `shouldBe` ((Branch 'a' (Branch 'b' (Branch 'c' Empty Empty) Empty) Empty), "")
-      it "returns ((B 'a' E (B 'b' E (B 'c' E E))), \"\") when s = \"a.b.c..\"" $ do
-        ds2tree "a.b.c.." `shouldBe` ((Branch 'a' Empty (Branch 'b' Empty (Branch 'c' Empty Empty))), "")
-      it "returns ((B 'a' (B 'b' E (B 'c' E E)) (B 'd' E E)), \"\") when s = \"ab.c..d..\"" $ do
-        ds2tree "ab.c..d.." `shouldBe` ((Branch 'a' (Branch 'b' Empty (Branch 'c' Empty Empty)) (Branch 'd' Empty Empty)), "")
-      it "returns ((B 'a' (B 'b' (B 'd' E E) (B 'e' E E)) (B 'c' E (B 'f' (B 'g' E E) E))), \"\") when s = \"abd..e..c.fg...\"" $ do
-        ds2tree "abd..e..c.fg..." `shouldBe` ((Branch 'a' (Branch 'b' (Branch 'd' Empty Empty) (Branch 'e' Empty Empty)) (Branch 'c' Empty (Branch 'f' (Branch 'g' Empty Empty) Empty))), "")
+      it "returns E when s = \".\"" $ do
+        ds2tree "." `shouldBe` Empty
+      it "returns (B 'a' E E) when s = \"a..\"" $ do
+        ds2tree "a.." `shouldBe` (Branch 'a' Empty Empty)
+      it "returns (B 'a' E E) when s = \"a...\"" $ do
+        ds2tree "a..." `shouldBe` (Branch 'a' Empty Empty)
+      it "returns (B 'a' (B 'b' E E) E) when s = \"ab...\"" $ do
+        ds2tree "ab..." `shouldBe` (Branch 'a' (Branch 'b' Empty Empty) Empty)
+      it "returns (B 'a' E (B 'c' E E)) when s = \"a.c..\"" $ do
+        ds2tree "a.c.." `shouldBe` (Branch 'a' Empty (Branch 'c' Empty Empty))
+      it "returns (B 'a' (B 'b' E E) (B 'c' E E)) when s = \"ab..c..\"" $ do
+        ds2tree "ab..c.." `shouldBe` (Branch 'a' (Branch 'b' Empty Empty) (Branch 'c' Empty Empty))
+      it "returns (B 'a' (B 'b' (B 'c' E E) E) E) when s = \"abc....\"" $ do
+        ds2tree "abc...." `shouldBe` (Branch 'a' (Branch 'b' (Branch 'c' Empty Empty) Empty) Empty)
+      it "returns (B 'a' E (B 'b' E (B 'c' E E))) when s = \"a.b.c..\"" $ do
+        ds2tree "a.b.c.." `shouldBe` (Branch 'a' Empty (Branch 'b' Empty (Branch 'c' Empty Empty)))
+      it "returns (B 'a' (B 'b' E (B 'c' E E)) (B 'd' E E)) when s = \"ab.c..d..\"" $ do
+        ds2tree "ab.c..d.." `shouldBe` (Branch 'a' (Branch 'b' Empty (Branch 'c' Empty Empty)) (Branch 'd' Empty Empty))
+      it "returns (B 'a' (B 'b' (B 'd' E E) (B 'e' E E)) (B 'c' E (B 'f' (B 'g' E E) E))) when s = \"abd..e..c.fg...\"" $ do
+        ds2tree "abd..e..c.fg..." `shouldBe` (Branch 'a' (Branch 'b' (Branch 'd' Empty Empty) (Branch 'e' Empty Empty)) (Branch 'c' Empty (Branch 'f' (Branch 'g' Empty Empty) Empty)))
+      it "throws exception when s = \"a.\" (1)" $ do
+        evaluate (ds2tree "a.") `shouldThrow` anyException
     describe "tree2ds" $ do
       it "returns \".\" when t = E" $ do
         tree2ds (Empty :: Tree Char) `shouldBe` "."
@@ -604,4 +604,4 @@ spec = do
     describe "tree2ds + ds2tree" $ do
       it "returns same tree" $ do
         let t = Branch 'a' (Branch 'b' Empty (Branch 'c' Empty Empty)) (Branch 'd' (Branch 'e' (Branch 'f' Empty Empty) (Branch 'g' Empty Empty)) (Branch 'h' Empty Empty))
-            in (fst . ds2tree . tree2ds) t `shouldBe` t
+            in (ds2tree . tree2ds) t `shouldBe` t
